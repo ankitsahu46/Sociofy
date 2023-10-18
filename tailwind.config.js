@@ -11,6 +11,9 @@ export default {
         "md_x": {
           "min": "768px",
           "max": "1279px"
+        },
+        "mob": {
+          "max": "768px",
         }
       }
     },
