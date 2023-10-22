@@ -1,11 +1,11 @@
 import './App.css'
-import { Header, Main } from './Components'
+import { Header, Main } from './pages'
 
 function App() {
   return (
     <>
       <div className='w-full m-0 p-0 h-full bg-white'>
-        <div className='grid grid-cols-12'>
+        <div className='flex max-h-[100vh]'>
           <Header />
           <Main />
         </div>

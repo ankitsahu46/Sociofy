@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --blue: #29caff;
+    --blue-semidark: #20a1cc;
+  }
+}
+
+
+.scroll-hidden::-webkit-scrollbar {
+   display: none;
+}
+.scroll-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
