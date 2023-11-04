@@ -30,7 +30,7 @@ function Header() {
   };
   return (
     <>
-      <header className="fixed bottom-0 left-0 md:relative  md_x:max-w-[70px] xl:w-56 px-4 md:px-0 xl:px-4 md:py-4  w-full h-10 md:h-full md:min-h-[100vh] flex flex-col justify-center md:justify-between md:items-center xl:items-start order-2 md:order-1 bg-white border-r-[1px]">
+      <header className="fixed bottom-0 left-0 md:relative  md_x:max-w-[70px] xl:w-56 px-4 md:px-0 xl:px-4 md:py-4  w-full h-10 md:h-full md:min-h-[100vh] flex flex-col justify-center md:justify-between md:items-center xl:items-start order-2 md:order-1 bg-white border-r-[1px] border-t-2 md:border-t-0 md:border-l-2 border-gray-100">
         {/* Sociofy Logo and Name */}
         <div onClick={() => location.reload()} className="hidden md:flex justify-center  items-center xl:justify-start xl:pl-2">
           <a href="#" className="flex">
@@ -49,7 +49,7 @@ function Header() {
             [Post, "Post", "#"],
             [Home, "Home", "#"],
             [Notification, "Notification", "#"],
-            [profilePic, "Profile", "#"],
+            [profilePic, "Profile", "https://www.instagram.com/mister_2.0/"],
           ].map((navInfo) => (
             <Nav key={navInfo[1]} handleClick={handleClick} {...navInfo} />
           ))}

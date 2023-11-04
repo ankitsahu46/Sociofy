@@ -11,7 +11,9 @@ function SideSection() {
     <aside className='hidden mdl:block mdl:col-span-3 h-[calc(100vh-2.5rem)] mdl:h-[100vh] px-5 py-5 border-l-[1px]'>
       <div className='flex flex-col justify-center items-center pt-5'>
         <div className='w-36 h-36 rounded-full border-4 border-blue-500 flex justify-center items-center cursor-pointer' >
-          <img src={profilePic} alt="" className='w-32 h-32 rounded-full' />
+          <a href="https://www.instagram.com/mister_2.0/" target="_blank" rel="noreferrer">
+            <img src={profilePic} alt="" className='w-32 h-32 rounded-full' />
+          </a>
         </div>
         <span className='mt-2 font-medium text-sm cursor-pointer'>{username}</span>
         <span className='font-medium text-lg text-blue-600 cursor-pointer'>{userName}</span>
@@ -33,7 +35,9 @@ function SideSection() {
         }
       </div>
       <div className='flex justify-center items-center mt-10'>
-        <button onClick={() => console.log("profile")} className='bg-blue-700 rounded-lg text-white px-4 py-1 flex items-center'>View Profile<span><img src="src/assets/arrow.svg" className='w-4 h-4 invert rotate-45 scale-110 ml-1'/></span></button>
+        <a href="https://www.instagram.com/mister_2.0/" target="_blank" rel="noreferrer" className='bg-blue-700 rounded-lg text-white px-4 py-1 flex items-center'>View Profile
+          <span><img src="src/assets/arrow.svg" className='w-4 h-4 invert rotate-45 scale-110 ml-1' /></span>
+        </a>
       </div>
     </aside>)
 }
