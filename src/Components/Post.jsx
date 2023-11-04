@@ -83,7 +83,7 @@ function Post({ postData }) {
                   <span><img src="src/assets/options.svg" alt="" className="rotate-90 cursor-pointer" /></span>
                 </div>
                 <div className="font-normal text-gray-600">
-                  This is dummy comment. We will replace it with the real comment when we will be working with the backend data. Thankyou!!
+                  This is dummy comment. We will replace it with the real comment when we will be working with the backend data. Thankyou!!!
                 </div>
               </div>
             </div>
