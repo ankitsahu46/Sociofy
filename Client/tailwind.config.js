@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       screens: {
+        "xs": "460px",
         "mdl": "1160px",
         "md_x": {
           "min": "768px",
