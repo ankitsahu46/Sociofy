@@ -10,7 +10,8 @@ const postDataSchema = new mongoose.Schema({
   commentsall: [{
       commenterimg: String,
       commenterusername: String,
-  }]
+  }],
+  likers: [String],
 })
 
 export default mongoose.model('postdatas', postDataSchema);

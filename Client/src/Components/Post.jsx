@@ -1,17 +1,35 @@
 /* eslint-disable react/prop-types */
 import { CommentBox, PostReact } from './';
 import { profilePic, notification, notificationActive, comment, share, options } from '../assets';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function Post({ postImg, userImg, username, _id, likes, comments, shares, commentsall }) {
+function Post({ postImg, userImg, username, _id, comments, shares, commentsall, likers }) {
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
+  const [likeCount, setLikeCount] = useState(likers.length);
 
+  // const handleClick = async () => {
+  //   setLiked(!liked);
+  //   const response = await fetch(`http://localhost:8080/post/likes/${_id}?liked=${!liked}`, {
+  //     method: "PUT",
+  //     body: JSON.stringify({}),
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //   });
+  //   if (response.ok) {
+  //     setLikeCount(liked ? likeCount-1 : likeCount+1);
+  //   }
+  //   else {
+  //     const result = await response.json();
+  //     console.log(result.message);
+  //   }
+  // }
+  
   const handleClick = async () => {
     setLiked(!liked);
     const response = await fetch(`http://localhost:8080/post/likes/${_id}?liked=${!liked}`, {
       method: "PUT",
-      body: JSON.stringify({}),
+      body: JSON.stringify({liker: "mister_2.0"}),              //add current profile's username
       headers: {
         "Content-Type": "application/json"
       }
@@ -24,7 +42,32 @@ function Post({ postImg, userImg, username, _id, likes, comments, shares, commen
       console.log(result.message);
     }
   }
+  
+  const checkLikedOrNot = async () => {
+    console.log("ankit bhai");
+    const response = await fetch(`http://localhost:8080/post/checklikedornot/${_id}`, {
+      method: "PUT",
+      body: JSON.stringify({username: "mister_2.0"}),          //use current profile's username
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result);
+      setLiked(result.liked)
+    }
+    else {
+      const result = await response.json();
+      console.log(result, "error, liked");
+    }
+  }
+  // checkLikedOrNot();
 
+  useEffect(() => {
+    checkLikedOrNot();
+  }, [])
+  
   return (
     <div className="w-full mb-6">
       <div className="bg-white rounded-2xl shadow-lg pb-3">
