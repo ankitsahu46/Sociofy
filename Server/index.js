@@ -2,7 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./connection/connect.js";
-import home from './routes/home.js';
+import post from './routes/post.js';
 import cors from 'cors';
 dotenv.config();
 
@@ -19,11 +19,7 @@ app.use(cors());
 
 
 //routes
-app.use("/", home);
-// app.get("/", (req, res) => {
-//   res.send("ankitsahu is working");
-//   console.log("ankitsahu is working");
-// })
+app.use("/post", post);
 
 //port
 const port = process.env.PORT || 8080;

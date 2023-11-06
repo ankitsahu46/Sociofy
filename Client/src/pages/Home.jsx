@@ -6,7 +6,7 @@ function Home() {
 
   const getData = async () => {
     try {
-      let response = await fetch("http://localhost:8080");
+      let response = await fetch("http://localhost:8080/post");
       const result = await response.json();
       setPostsData(result);
     }

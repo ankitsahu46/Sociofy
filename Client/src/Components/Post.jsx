@@ -1,8 +1,30 @@
 /* eslint-disable react/prop-types */
 import { CommentBox, PostReact } from './';
-import { profilePic } from '../assets';
+import { profilePic, notification, notificationActive, comment, share, options } from '../assets';
+import { useState } from 'react';
 
-function Post({ postImg, userImg, username, _id, likes, comments, shares, commentsall}) {
+function Post({ postImg, userImg, username, _id, likes, comments, shares, commentsall }) {
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(likes);
+
+  const handleClick = async () => {
+    setLiked(!liked);
+    const response = await fetch(`http://localhost:8080/post/likes/${_id}?liked=${!liked}`, {
+      method: "PUT",
+      body: JSON.stringify({}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (response.ok) {
+      setLikeCount(liked ? likeCount-1 : likeCount+1);
+    }
+    else {
+      const result = await response.json();
+      console.log(result.message);
+    }
+  }
+
   return (
     <div className="w-full mb-6">
       <div className="bg-white rounded-2xl shadow-lg pb-3">
@@ -34,7 +56,7 @@ function Post({ postImg, userImg, username, _id, likes, comments, shares, commen
                 </div>
               </a>
             </div>
-            <img src="src/assets/options.svg" alt="" className="rotate-90 cursor-pointer" />
+            <img src={options} alt="" className="rotate-90 cursor-pointer" />
           </div>
         </div>
 
@@ -42,17 +64,17 @@ function Post({ postImg, userImg, username, _id, likes, comments, shares, commen
           {/* Like, Comment and Share */}
           <div className="flex justify-between py-1 pb-2">
             <div className="flex justify-around cursor-pointer w-full">
-              <PostReact svg="src/assets/notification.svg" name="Like" />
+              <PostReact svg={liked ? notificationActive : notification} name="Like" handleClick={handleClick} />
               <label htmlFor={`comment${_id}`}>
-                <PostReact svg="src/assets/comments.svg" name="Comment" />
+                <PostReact svg={comment} name="Comment" />
               </label>
-              <PostReact svg="src/assets/share.svg" name="Share" />
+              <PostReact svg={share} name="Share" />
             </div>
           </div>
 
           {/* Like, comment and share info */}
           <div className="text-[10px] text-gray-500">
-            <span>{likes} likes</span>
+            <span>{likeCount} likes</span>
             <span className="before:content-['•'] ml-2">{comments} comments</span>
             <span className="before:content-['•'] ml-2">{shares} shares</span>
           </div>
@@ -60,7 +82,7 @@ function Post({ postImg, userImg, username, _id, likes, comments, shares, commen
           {/* Add a comment */}
           <div className="flex py-5 items-center w-full">
             <div className="w-11 h-11">
-              <a href="https://www.instagram.com/mister_2.0/" target="_blank" rel="noreferrer">
+              <a href={`https://www.instagram.com/${profilePic}/`} target="_blank" rel="noreferrer">
                 <img src={profilePic} alt="" className="rounded-full" />
               </a>
             </div>

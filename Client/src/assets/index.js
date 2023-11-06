@@ -10,6 +10,9 @@ import profilePic from './profilePic.png';
 import logo from './sociofyLogo.png';
 import more from './more.svg';
 import moreActive from './moreActive.svg';
+import comment from './comment.svg';
+import share from './share.svg';
+import options from './options.svg';
 
 
-export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive };
+export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options };
