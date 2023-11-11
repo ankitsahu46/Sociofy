@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { CommentBox, PostReact } from './';
+import { Comment, PostReact, InfoBox } from './';
 import { profilePic, notification, notificationActive, comment, share, options } from '../assets';
 import { useEffect, useState, useRef } from 'react';
 
@@ -11,7 +11,7 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
   const [addComment, setAddComment] = useState("");
   const [showComment, setShowComment] = useState(false);
 
-  const commentState = ["pending", "notPending", "failed"];
+  const commentState = ["pending", "notPending", "failed", "deleting"];
   const [pendingComment, setPendingComment] = useState(commentState[1]);
   const cmt = useRef("");
 
@@ -90,8 +90,28 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
       setLiked(result.liked)
     }
     else {
-      const result = await response.json();
+      // const result = await response.json();
     }
+  }
+
+  const handleDeleteComment = async (id) => {
+    console.log("dle comment");
+    const response = await fetch(`http://localhost:8080/post/deletecomment/${_id}/${id}`, {
+      method: 'DELETE',
+    })
+    const result = await response.json();
+
+    if (result.success) {
+      const response2 = await fetch(`http://localhost:8080/post/getcomments/${_id}`);
+      const result2 = await response2.json();
+
+      setAllComments(result2.comments);
+      console.log("deleted successfully");
+    }
+    else {
+      console.log("Couldn't delete comment");
+    }
+    console.log("delte comemt 2");
   }
 
   useEffect(() => {
@@ -129,7 +149,9 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
                 </div>
               </a>
             </div>
-            <img src={options} alt="" className="rotate-90 cursor-pointer" />
+            <InfoBox name="Options" position={"top-5 -left-16"}>
+              <img src={options} alt="" className="rotate-90 cursor-pointer" />
+            </InfoBox>
           </div>
         </div>
 
@@ -146,10 +168,10 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
           </div>
 
           {/* Like, comment and share info */}
-          <div className="text-[10px] text-gray-500">
+          <div className="text-[10px] text-gray-500 ml-1">
             <span>{likeCount} likes</span>
-            <span className="before:content-['•'] ml-2">{comments} comments</span>
-            <span className="before:content-['•'] ml-2">{shares} shares</span>
+            <span className="before:content-['•'] ml-2"><span className='ml-1'>{comments} comments</span></span>
+            <span className="before:content-['•'] ml-2"><span className='ml-1'>{shares} shares</span></span>
           </div>
 
           {/* Add a comment */}
@@ -168,7 +190,6 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
                 </button>
               }
             </div>
-
           </div>
 
           {/* Comment Box */}
@@ -176,15 +197,15 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
             <div className='flex flex-col-reverse gap-3'>
               {
                 allComments.map((commenter) => (
-                  <CommentBox key={commenter._id} {...commenter} />
+                  <Comment key={commenter._id} handleDelete={handleDeleteComment} {...commenter} />
                 ))
               }
               {
                 showComment &&
-                <CommentBox comment={cmt.current} commenterusername="ankitsahu_78" commenterimg={profilePic} pending={pendingComment} />
+                <Comment comment={cmt.current} commenterusername="ankitsahu_78" commenterimg={profilePic} pending={pendingComment} />
               }
             </div>
-            <div className="text-sm mt-2 text-gray-500 font-medium">
+            <div className="text-sm mt-2 text-gray-500 font-medium cursor-pointer">
               Load more comments
             </div>
           </div>

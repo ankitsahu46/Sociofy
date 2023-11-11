@@ -4,6 +4,7 @@ import { incdecLikes } from '../controllers/likesController.js';
 import { checkLikedOrNot } from '../controllers/checkLikedOrNotController.js';
 import { addComment } from "../controllers/addCommentController.js";
 import { getComments } from "../controllers/getCommentsController.js";
+import { deleteComment } from "../controllers/deleteCommentController.js";
 
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router
   .put("/checklikedornot/:id", checkLikedOrNot)
   .post("/addcomment/:id", addComment)
   .get("/getcomments/:id", getComments)
+  .delete("/deletecomment/:_id/:id", deleteComment)
 
 export default router;

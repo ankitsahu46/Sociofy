@@ -14,6 +14,6 @@ import comment from './comment.svg';
 import share from './share.svg';
 import options from './options.svg';
 import noimage from './noimage.png';
+import deleteIcon from './deleteIcon.svg';
 
-
-export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noimage };
+export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noimage, deleteIcon };
