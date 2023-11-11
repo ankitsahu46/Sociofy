@@ -6,8 +6,14 @@ import { useEffect, useState, useRef } from 'react';
 function Post({ postImg, userImg, username, _id, comments, shares, commentsall, likers }) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(likers.length);
+  const [allComments, setAllComments] = useState(commentsall);
   const [sendBtn, setSendBtn] = useState(false);
   const [addComment, setAddComment] = useState("");
+  const [showComment, setShowComment] = useState(false);
+
+  const commentState = ["pending", "notPending", "failed"];
+  const [pendingComment, setPendingComment] = useState(commentState[1]);
+  const cmt = useRef("");
 
   const handleClick = async () => {
     setLiked(!liked);
@@ -23,26 +29,46 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
     }
     else {
       const result = await response.json();
-      console.log(result.message);
     }
   }
 
   const handleSend = async () => {
+    cmt.current = addComment;
     setAddComment("");
     setSendBtn(false);
+    setShowComment(true);
+    setPendingComment(commentState[0]);
 
-    try {
-      const response = await fetch(`http://localhost:8080/post/addcomment/${_id}`, {
-        method: "POST",
-        body: JSON.stringify({ comment: addComment, username: "mister_2.0" }),
-        headers: {
-          "Content-Type": "application/json",
-        }
-      });
-      console.log("ERRor not found");
+    const response = await fetch(`http://localhost:8080/post/addcomment/${_id}`, {
+      method: "POST",
+      body: JSON.stringify({ comment: addComment, username: "mister_2.0", img: profilePic }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const result = await response.json();
+    setPendingComment(commentState[1]);
+
+    if (result.success) {
+      const response2 = await fetch(`http://localhost:8080/post/getcomments/${_id}`);
+      const result2 = await response2.json();
+
+      if (result2.success) {
+        setAllComments(result2.comments);
+      }
+      else {
+        // console.log("Couldn't reload comments");
+      }
+      setPendingComment(commentState[1]);
+      setShowComment(false);
     }
-    catch (err) {
-      console.log("err found");
+    else {
+      setPendingComment(commentState[2]);
+
+      setTimeout(() => {
+        setPendingComment(commentState[1]);
+        setShowComment(false);
+      }, 4000)
     }
   }
 
@@ -67,7 +93,6 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
       const result = await response.json();
     }
   }
-  // checkLikedOrNot();
 
   useEffect(() => {
     checkLikedOrNot();
@@ -148,11 +173,15 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
 
           {/* Comment Box */}
           <div>
-            <div className='flex flex-col gap-3'>
+            <div className='flex flex-col-reverse gap-3'>
               {
-                commentsall.map((commenter) => (
-                  <CommentBox key={commenter.commenterimg + commenter.comment} {...commenter} />
+                allComments.map((commenter) => (
+                  <CommentBox key={commenter._id} {...commenter} />
                 ))
+              }
+              {
+                showComment &&
+                <CommentBox comment={cmt.current} commenterusername="ankitsahu_78" commenterimg={profilePic} pending={pendingComment} />
               }
             </div>
             <div className="text-sm mt-2 text-gray-500 font-medium">
