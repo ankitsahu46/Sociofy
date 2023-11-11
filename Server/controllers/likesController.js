@@ -12,7 +12,7 @@ const incdecLikes = async (req, res) => {
         },
         {
           // $inc: { likes: inc },
-          $addToSet: {
+          $push: {
             likers: req.body.liker,
           },
         },

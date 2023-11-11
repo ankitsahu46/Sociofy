@@ -13,6 +13,7 @@ import moreActive from './moreActive.svg';
 import comment from './comment.svg';
 import share from './share.svg';
 import options from './options.svg';
+import noimage from './noimage.png';
 
 
-export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options };
+export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noimage };

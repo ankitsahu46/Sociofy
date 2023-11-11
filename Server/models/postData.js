@@ -10,6 +10,7 @@ const postDataSchema = new mongoose.Schema({
   commentsall: [{
       commenterimg: String,
       commenterusername: String,
+      comment: String
   }],
   likers: [String],
 })

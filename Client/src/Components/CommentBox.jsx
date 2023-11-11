@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
+import { noimage } from "../assets"
+
 
 function CommentBox({ commenterimg, commenterusername, comment }) {
   return (
     <div className="flex">
       <a href={`https://www.instagram.com/${commenterusername}/`} target="_blank" rel="noreferrer">
         <div className="w-8 h-8 mt-1">
-          <img src={commenterimg} alt="" className="rounded-full w-8 h-8" />
+          <img src={commenterimg ? commenterimg : noimage} alt="" className="rounded-full w-8 h-8" />
         </div>
       </a>
       <div className="px-3 py-2 bg-gray-100 rounded-lg rounded-tl-[0px] ml-2 w-full">

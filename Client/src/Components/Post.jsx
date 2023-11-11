@@ -1,65 +1,70 @@
 /* eslint-disable react/prop-types */
 import { CommentBox, PostReact } from './';
 import { profilePic, notification, notificationActive, comment, share, options } from '../assets';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 function Post({ postImg, userImg, username, _id, comments, shares, commentsall, likers }) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(likers.length);
+  const [sendBtn, setSendBtn] = useState(false);
+  const [addComment, setAddComment] = useState("");
 
-  // const handleClick = async () => {
-  //   setLiked(!liked);
-  //   const response = await fetch(`http://localhost:8080/post/likes/${_id}?liked=${!liked}`, {
-  //     method: "PUT",
-  //     body: JSON.stringify({}),
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }
-  //   });
-  //   if (response.ok) {
-  //     setLikeCount(liked ? likeCount-1 : likeCount+1);
-  //   }
-  //   else {
-  //     const result = await response.json();
-  //     console.log(result.message);
-  //   }
-  // }
-  
   const handleClick = async () => {
     setLiked(!liked);
     const response = await fetch(`http://localhost:8080/post/likes/${_id}?liked=${!liked}`, {
       method: "PUT",
-      body: JSON.stringify({liker: "mister_2.0"}),              //add current profile's username
+      body: JSON.stringify({ liker: "mister_2.0" }),              //add current profile's username
       headers: {
         "Content-Type": "application/json"
       }
     });
     if (response.ok) {
-      setLikeCount(liked ? likeCount-1 : likeCount+1);
+      setLikeCount(liked ? likeCount - 1 : likeCount + 1);
     }
     else {
       const result = await response.json();
       console.log(result.message);
     }
   }
-  
+
+  const handleSend = async () => {
+    setAddComment("");
+    setSendBtn(false);
+
+    try {
+      const response = await fetch(`http://localhost:8080/post/addcomment/${_id}`, {
+        method: "POST",
+        body: JSON.stringify({ comment: addComment, username: "mister_2.0" }),
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      console.log("ERRor not found");
+    }
+    catch (err) {
+      console.log("err found");
+    }
+  }
+
+  const handleAddCommentChange = (e) => {
+    setAddComment(e.target.value);
+    setSendBtn(e.target.value.length !== 0);
+  }
+
   const checkLikedOrNot = async () => {
-    console.log("ankit bhai");
     const response = await fetch(`http://localhost:8080/post/checklikedornot/${_id}`, {
       method: "PUT",
-      body: JSON.stringify({username: "mister_2.0"}),          //use current profile's username
+      body: JSON.stringify({ username: "mister_2.0" }),          //use current profile's username
       headers: {
         "Content-Type": "application/json",
       }
     })
     if (response.ok) {
       const result = await response.json();
-      console.log(result);
       setLiked(result.liked)
     }
     else {
       const result = await response.json();
-      console.log(result, "error, liked");
     }
   }
   // checkLikedOrNot();
@@ -67,7 +72,7 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
   useEffect(() => {
     checkLikedOrNot();
   }, [])
-  
+
   return (
     <div className="w-full mb-6">
       <div className="bg-white rounded-2xl shadow-lg pb-3">
@@ -123,13 +128,22 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
           </div>
 
           {/* Add a comment */}
-          <div className="flex py-5 items-center w-full">
-            <div className="w-11 h-11">
+          <div className="flex py-5 items-center w-full gap-2">
+            <div className="w-11 h-11 flex justify-center items-center">
               <a href={`https://www.instagram.com/${profilePic}/`} target="_blank" rel="noreferrer">
                 <img src={profilePic} alt="" className="rounded-full" />
               </a>
             </div>
-            <textarea id={`comment${_id}`} className="rounded-full bg-gray-100 text-sm text-gray-700 outline-[var(--blue)] px-3 ml-2 border-gray-300 border-[1px] w-full h-auto py-2" rows="1" placeholder="Add a comment..." ></textarea>
+            <div className='w-full flex gap-2'>
+              <textarea id={`comment${_id}`} onChange={(e) => handleAddCommentChange(e)} className="rounded-full bg-gray-100 text-sm text-gray-700 outline-[var(--blue)] px-3 border-gray-300 border-[1px] w-full h-auto py-2" value={addComment} rows="1" placeholder="Add a comment..." ></textarea>
+              {
+                sendBtn &&
+                <button onClick={handleSend} className='bg-[var(--blue)] rounded-full px-3 py-2 text-xs text-white'>
+                  Send
+                </button>
+              }
+            </div>
+
           </div>
 
           {/* Comment Box */}
@@ -137,7 +151,7 @@ function Post({ postImg, userImg, username, _id, comments, shares, commentsall, 
             <div className='flex flex-col gap-3'>
               {
                 commentsall.map((commenter) => (
-                  <CommentBox key={commenter.commenterimg} {...commenter} />
+                  <CommentBox key={commenter.commenterimg + commenter.comment} {...commenter} />
                 ))
               }
             </div>
