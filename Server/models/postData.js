@@ -7,12 +7,12 @@ const postDataSchema = new mongoose.Schema({
   likes: Number,
   comments: Number,
   shares: Number,
+  likers: [String],
   commentsall: [{
       commenterimg: String,
       commenterusername: String,
       comment: String
   }],
-  likers: [String],
 })
 
 export default mongoose.model('postdatas', postDataSchema);

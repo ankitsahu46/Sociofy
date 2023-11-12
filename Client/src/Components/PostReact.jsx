@@ -8,7 +8,7 @@ function PostReact({ svg, name, handleClick }) {
       <InfoBox name={name} position={"top-8 left-7"}>
         <img src={svg} alt={name} className="scale-90 xs:scale-100" />
       </InfoBox>
-      <span className="ml-1 text-xs xs:text-sm text-gray-600 font-medium">{name}</span>
+      <span className="ml-1 text-xs xs:text-sm text-gray-600 font-medium select-none">{name}</span>
     </div>
   )
 }

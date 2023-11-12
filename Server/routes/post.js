@@ -1,10 +1,13 @@
 import express from "express";
-import { getPosts } from "../controllers/homeController.js";
-import { incdecLikes } from '../controllers/likesController.js';
-import { checkLikedOrNot } from '../controllers/checkLikedOrNotController.js';
-import { addComment } from "../controllers/addCommentController.js";
-import { getComments } from "../controllers/getCommentsController.js";
-import { deleteComment } from "../controllers/deleteCommentController.js";
+import {
+  addComment,
+  checkLikedOrNot,
+  deleteComment,
+  getComments,
+  getPosts,
+  likeCount,
+  incdecLikes,
+} from "../controllers/index.js";
 
 const router = express.Router();
 
@@ -15,5 +18,6 @@ router
   .post("/addcomment/:id", addComment)
   .get("/getcomments/:id", getComments)
   .delete("/deletecomment/:_id/:id", deleteComment)
+  .get("/likecount/:id", likeCount);
 
 export default router;
