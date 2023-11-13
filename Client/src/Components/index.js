@@ -11,6 +11,8 @@ import StoryDiv from "./StoryDiv.jsx";
 import PostReactBox from "./PostReactBox.jsx";
 import PostOwnerInfo from "./PostOwnerInfo.jsx";
 import PostImg from "./PostImg.jsx";
+import ShowPost from "./ShowPost.jsx";
+import Loading from "./Loading.jsx";
 
 export {
   Nav,
@@ -25,5 +27,7 @@ export {
   CommentBox,
   PostReactBox,
   PostOwnerInfo,
-  PostImg
+  PostImg,
+  ShowPost,
+  Loading
 };

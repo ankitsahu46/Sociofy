@@ -3,7 +3,7 @@ import { useState } from "react";
 import { notification, notificationActive, share, comment } from "../assets";
 import { PostReact } from "./";
 
-function PostReactBox({ liked, setLiked, likers, allComments, shares, postId }) {
+function PostReactBox({ liked, setLiked, likers = [], allComments = [], shares, postId }) {
   const [likeCount, setLikeCount] = useState(likers.length);
 
   const handleLiked = async () => {
@@ -31,6 +31,22 @@ function PostReactBox({ liked, setLiked, likers, allComments, shares, postId }) 
       await response.json();
     }
   }
+
+  const handleShare = async () => {
+    const info = {
+      title: "See post on Instagram",
+      url: "post/see/" + postId,
+      text: "Here's a Good post I found on Instagram. It may inspire you to work hard on your goals."
+    }
+
+    try {
+      await navigator.share(info);
+    }
+    catch (err) {
+      console.log("Couldn't share!");
+    }
+  }
+
   return (
     <>
       <div className="flex justify-between py-1 pb-2">
@@ -39,7 +55,7 @@ function PostReactBox({ liked, setLiked, likers, allComments, shares, postId }) 
           <label htmlFor={`comment${postId}`}>
             <PostReact svg={comment} name="Comment" />
           </label>
-          <PostReact svg={share} name="Share" />
+          <PostReact svg={share} name="Share" handleClick={handleShare} />
         </div>
       </div>
 

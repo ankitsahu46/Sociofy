@@ -2,10 +2,10 @@
 import { CommentBox, PostReactBox, PostOwnerInfo, PostImg } from './';
 import { useEffect, useState } from 'react';
 
-function Post({ postImg, userImg, username, _id, shares, commentsall, likers }) {
+function Post({ postImg, userImg, username, _id, shares, commentsall=[], likers=[]}) {
   const [liked, setLiked] = useState(false);
   const [allComments, setAllComments] = useState(commentsall);
-
+  
   const postReactBoxProps = {
     liked,
     setLiked,
@@ -33,13 +33,13 @@ function Post({ postImg, userImg, username, _id, shares, commentsall, likers }) 
       setLiked(result.liked)
     }
     else {
-      // const result = await response.json();
+      await response.json();
     }
   }
 
   useEffect(() => {
     checkLikedOrNot();
-  })
+  }, [])
 
   return (
     <div className="w-full mb-6">

@@ -7,6 +7,7 @@ import {
   getPosts,
   likeCount,
   incdecLikes,
+  getPostData
 } from "../controllers/index.js";
 
 const router = express.Router();
@@ -18,6 +19,8 @@ router
   .post("/addcomment/:id", addComment)
   .get("/getcomments/:id", getComments)
   .delete("/deletecomment/:_id/:id", deleteComment)
-  .get("/likecount/:id", likeCount);
+  .get("/likecount/:id", likeCount)
+  .get("/see/:id", getPostData)
+
 
 export default router;

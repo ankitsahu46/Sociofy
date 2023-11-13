@@ -20,7 +20,7 @@ function Comment({ _id, commenterimg, commenterusername, comment, pending, handl
       </a>
 
       <div className="w-full ml-1">
-        <div className="px-3 pt-1 pb-2 bg-gray-100 rounded-lg rounded-tl-[0px] w-full">
+        <div className="px-3 pt-1 pb-2 bg-gray-200 rounded-lg rounded-tl-[0px] w-full">
           <div className="flex justify-between items-center mb-1">
             <a href={`https://www.instagram.com/${commenterusername}/`} target="_blank" rel="noreferrer">
               <span className="text-sm font-medium">{commenterusername}</span>

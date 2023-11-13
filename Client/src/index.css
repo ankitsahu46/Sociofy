@@ -9,11 +9,22 @@
   }
 }
 
-
 .scroll-hidden::-webkit-scrollbar {
-   display: none;
+  display: none;
 }
 .scroll-hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+.custom-scroll-bar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scroll-bar::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 50px;
+}
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: #dfdddd;
+  border: 1px solid rgb(229, 235, 231);
 }

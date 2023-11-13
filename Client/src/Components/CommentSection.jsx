@@ -4,15 +4,14 @@ import { profilePic } from '../assets';
 
 function CommentSection({
   setAllComments,
-  allComments,
+  allComments = [],
   showComment,
   pendingComment,
   cmt,
   postId
 }) {
-  
+
   const handleDeleteComment = async (id) => {
-    console.log("dle comment");
     const response = await fetch(`http://localhost:8080/post/deletecomment/${postId}/${id}`, {
       method: 'DELETE',
     })
@@ -32,19 +31,18 @@ function CommentSection({
   return (
     <>
       <div>
-        <div className={`max-h-48 overflow-y-scroll scroll-hidden ${allComments.length > 2 && "border-b-[0.5px] rounded-2xl"}`}>
-
-        <div className={`flex flex-col-reverse gap-3 ${allComments.length && "py-3"}`}>
-          {
-            allComments.map((commenter) => (
-              <Comment key={commenter._id} handleDelete={handleDeleteComment} {...commenter} />
-            ))
-          }
-          {
-            showComment &&
-            <Comment comment={cmt.current} commenterusername="ankitsahu_78" commenterimg={profilePic} pending={pendingComment} />
-          }
-        </div>
+        <div className={`max-h-48 overflow-y-scroll rounded-2xl custom-scroll-bar  ${allComments.length > 2 && "border-b-[0.5px]"}`}>
+          <div className={`flex flex-col-reverse gap-3 ${allComments.length && "py-3"}`}>
+            {
+              allComments.map((commenter) => (
+                <Comment key={commenter._id} handleDelete={handleDeleteComment} {...commenter} />
+              ))
+            }
+            {
+              showComment &&
+              <Comment comment={cmt.current} commenterusername="ankitsahu_78" commenterimg={profilePic} pending={pendingComment} />
+            }
+          </div>
         </div>
         <div className="text-sm mt-2 text-gray-500 font-medium cursor-pointer">
           {

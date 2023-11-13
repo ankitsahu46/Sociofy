@@ -1,3 +1,4 @@
+import { profilePic } from "../assets"
 import { Story } from "./"
 
 function StoryDiv() {
@@ -8,55 +9,55 @@ function StoryDiv() {
           {
             [
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
               {
-                img: "src/assets/profilePic.png",
+                img: profilePic,
                 username: "mister_2.0"
               },
             ]

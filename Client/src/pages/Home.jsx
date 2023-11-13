@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Post, StoryDiv } from "../Components"
+import { Loading, Post, StoryDiv } from "../Components"
 
 function Home() {
-  const [postsData, setPostsData] = useState([]);
+  const [postsData, setPostsData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
     try {
@@ -13,6 +14,7 @@ function Home() {
     catch (err) {
       console.log(err);
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -22,14 +24,21 @@ function Home() {
   return (
     <section className='col-span-10 mdl:col-span-7 h-[calc(100vh-2.5rem)] md:h-[100vh] flex justify-center overflow-y-scroll scroll-hidden'>
       <div className="w-full flex flex-col items-center">
-        <StoryDiv />
-        <div className="w-full max-w-[500px]">
-          {
-            postsData.map((postData) => (
-              <Post key={postData._id} {...postData} />
-            ))
-          }
-        </div>
+        {
+          postsData ?
+            <>
+              <StoryDiv />
+              <div className="w-full max-w-[500px]">
+                {
+                  postsData.map((postData) => (
+                    <Post key={postData._id} {...postData} />
+                  ))
+                }
+              </div>
+            </>
+            :
+            <Loading loading={loading} />
+        }
       </div>
     </section>
   )
