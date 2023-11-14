@@ -6,6 +6,7 @@
   :root {
     --blue: #29caff;
     --blue-semidark: #20a1cc;
+    --blue-semidark2: #4896fc;
   }
 }
 
@@ -27,4 +28,24 @@
   border-radius: 50px;
   background-color: #dfdddd;
   border: 1px solid rgb(229, 235, 231);
+}
+
+.custom-shape-divider-top-1699970884 {
+  position: absolute;
+  top: 10rem;
+  left: -12rem;
+  width: 130%;
+  /* overflow: hidden; */
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1699970884 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 0px);
+  height: 150px;
+}
+
+.custom-shape-divider-top-1699970884 .shape-fill {
+  fill: #FFFFFF;
 }

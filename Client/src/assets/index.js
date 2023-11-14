@@ -15,5 +15,6 @@ import share from './share.svg';
 import options from './options.svg';
 import noimage from './noimage.png';
 import deleteIcon from './deleteIcon.svg';
+import wave from './wave.svg'; 
 
-export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noimage, deleteIcon };
+export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noimage, deleteIcon, wave };

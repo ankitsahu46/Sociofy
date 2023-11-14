@@ -13,6 +13,10 @@ import PostOwnerInfo from "./PostOwnerInfo.jsx";
 import PostImg from "./PostImg.jsx";
 import ShowPost from "./ShowPost.jsx";
 import Loading from "./Loading.jsx";
+import PrivateComponent from "./PrivateComponent.jsx";
+import Login from "./Login.jsx";
+import SignUp from "./SignUp.jsx";
+import Form from "./Form.jsx";
 
 export {
   Nav,
@@ -29,5 +33,9 @@ export {
   PostOwnerInfo,
   PostImg,
   ShowPost,
-  Loading
+  Loading,
+  PrivateComponent,
+  Login,
+  Form,
+  SignUp
 };

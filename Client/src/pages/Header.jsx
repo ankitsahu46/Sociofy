@@ -47,9 +47,9 @@ function Header() {
 
         <nav className=" flex md:flex-col  justify-around items-center md:justify-center xl:items-start md:[&>*:nth-child(3)]:order-1 w-full">
           {[
-            [Search, "Search", "#"],
-            [Post, "Post", "#"],
-            [Home, "Home", "#"],
+            [Search, "Search", "/login"],
+            [Post, "Post", "/signup"],
+            [Home, "Home", "/"],
             [Notification, "Notification", "#"],
             [profilePic, "Profile", "https://www.instagram.com/mister_2.0/"],
           ].map((navInfo) => (

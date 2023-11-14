@@ -15,6 +15,9 @@ export default {
         },
         "mob": {
           "max": "768px",
+        },
+        "llg": {
+          "max": "1024px"
         }
       }
     },
