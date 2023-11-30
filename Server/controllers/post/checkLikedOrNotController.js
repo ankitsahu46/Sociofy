@@ -1,4 +1,4 @@
-import postData from "../models/postData.js";
+import postData from "../../models/postData.js";
 
 const checkLikedOrNot = async (req, res) => {
   try {

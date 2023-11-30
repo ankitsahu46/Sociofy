@@ -1,4 +1,4 @@
-import postData from "../models/postData.js";
+import postData from "../../models/postData.js";
 
 const incdecLikes = async (req, res) => {
   // let inc = req.query.liked == "true" ? 1 : -1;

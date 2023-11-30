@@ -3,29 +3,26 @@
 import { useState } from "react";
 import { wave } from "../assets";
 
-function Form({ name, handleClick }) {
+function Form({ name, handleSubmit }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const handleEmailChange = (e) => {
-    setFormData({ ...formData, email: e.target.value });
-  }
-  const handlePasswordChange = (e) => {
-    setFormData({ ...formData, password: e.target.value });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   return (
     <div className="w-full h-[100vh] llg:bg-gradient-to-r from-[var(--blue)] to-[var(--blue-semidark2)] lg:bg-gray-200 flex items-center justify-center">
       <div className="flex justify-center items-center w-[80%] sm:w-[65%] md:w-[50%] lg:w-[80%] rounded-2xl shadow-lg overflow-hidden bg-white">
-        {/* Login form */}
+        {/* Login/Sign-up form */}
         <div className="w-full lg:w-[50%] flex flex-col  items-center bg-white mx-auto rounded-2xl lg:rounded-l-2xl lg:rounded-r-none py-5  min-h-[75vh] relative overflow-hidden">
           <div className="text-2xl font-bold text-[var(--blue)] mt-6 border-b-[2px] border-[var(--blue)]">{name}</div>
 
-          <form className="flex flex-col justify-center items-center mt-16 w-full max-w-[400px]">
-            <input type="text" value={formData.email} onChange={(e) => handleEmailChange(e)} placeholder="Email" className="mb-8 border-b-[0.5px] focus:border-b-[2px] border-gray-300 focus:border-[var(--blue)]  outline-none w-[75%] md:w-[65%]"
+          <form onSubmit={(e) => handleSubmit(e, formData)} className="flex flex-col justify-center items-center mt-16 w-full max-w-[400px]">
+            <input type="text" name="email" value={formData.email} onChange={(e) => handleChange(e)} placeholder="Email" required className="mb-8 border-b-[0.5px] focus:border-b-[2px] border-gray-300 focus:border-[var(--blue)]  outline-none w-[75%] md:w-[65%]"
             />
-            <input type="password" value={formData.password} onChange={(e) => handlePasswordChange(e)} placeholder="Password" className="mb-8 border-b-[0.5px] focus:border-b-[2px] border-gray-300 focus:border-[var(--blue)] outline-none w-[75%] md:w-[65%]"
+            <input type="password" name="password" value={formData.password} onChange={(e) => handleChange(e)} placeholder="Password" required className="mb-8 border-b-[0.5px] focus:border-b-[2px] border-gray-300 focus:border-[var(--blue)] outline-none w-[75%] md:w-[65%]"
             />
-            <button onClick={handleClick} className="w-[75%] md:w-[65%] py-1 rounded-2xl text-white font-medium bg-gradient-to-r from-[var(--blue)] to-[var(--blue-semidark2)] mt-6 mb-10  active:scale-105 transition-all">
+            <button type="submit" className="w-[75%] md:w-[65%] py-1 rounded-2xl text-white font-medium bg-gradient-to-r from-[var(--blue)] to-[var(--blue-semidark2)] mt-6 mb-10  active:scale-105 transition-all">
               {name}
             </button>
           </form>

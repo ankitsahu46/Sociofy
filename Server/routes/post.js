@@ -8,7 +8,7 @@ import {
   likeCount,
   incdecLikes,
   getPostData
-} from "../controllers/index.js";
+} from "../controllers/post/index.js";
 
 const router = express.Router();
 

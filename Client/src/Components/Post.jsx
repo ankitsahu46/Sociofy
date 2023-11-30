@@ -2,10 +2,11 @@
 import { CommentBox, PostReactBox, PostOwnerInfo, PostImg } from './';
 import { useEffect, useState } from 'react';
 
-function Post({ postImg, userImg, username, _id, shares, commentsall=[], likers=[]}) {
+function Post(props) {
+  const { postImg, userImg, username, _id, shares, commentsall = [], likers = [] } = props;
   const [liked, setLiked] = useState(false);
   const [allComments, setAllComments] = useState(commentsall);
-  
+
   const postReactBoxProps = {
     liked,
     setLiked,

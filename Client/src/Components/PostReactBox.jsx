@@ -62,8 +62,8 @@ function PostReactBox({ liked, setLiked, likers = [], allComments = [], shares, 
       {/* Like, comment and share info */}
       <div className="text-[10px] text-gray-500 ml-1">
         <span>{likeCount} likes</span>
-        <span className="before:content-['•'] ml-2"><span className='ml-1'>{allComments.length} comments</span></span>
-        <span className="before:content-['•'] ml-2"><span className='ml-1'>{shares} shares</span></span>
+        <span>{" • "}{allComments.length} comments</span>
+        <span>{" • "}{shares} shares</span>
       </div>
     </>
   )

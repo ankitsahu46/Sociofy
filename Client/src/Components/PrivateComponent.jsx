@@ -2,12 +2,13 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { Header } from '../pages';
 
 function PrivateComponent() {
+  const auth = localStorage.getItem('token');
+
   return (
     <>
       <Header />
-      <Outlet />
+      {auth ? <Outlet /> : <Navigate to="/login" />}
     </>
-    // <Navigate to="/login" />
   )
 }
 

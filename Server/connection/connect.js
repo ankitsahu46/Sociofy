@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async (url) => {
   const options = {
-    dbName: "posts"
+    dbName: "sociofy_data"
   }
   try {
     await mongoose.connect(url, options);

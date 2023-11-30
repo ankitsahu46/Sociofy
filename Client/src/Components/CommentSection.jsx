@@ -2,15 +2,9 @@
 import { Comment } from '.';
 import { profilePic } from '../assets';
 
-function CommentSection({
-  setAllComments,
-  allComments = [],
-  showComment,
-  pendingComment,
-  cmt,
-  postId
-}) {
-
+function CommentSection(props) {
+  const { setAllComments, allComments = [], showComment, pendingComment, cmt, postId } = props;
+  
   const handleDeleteComment = async (id) => {
     const response = await fetch(`http://localhost:8080/post/deletecomment/${postId}/${id}`, {
       method: 'DELETE',
