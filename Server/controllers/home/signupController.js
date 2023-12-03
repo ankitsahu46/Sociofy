@@ -4,7 +4,7 @@ import Jwt from 'jsonwebtoken';
 const signup = async (req, res) => {
 
   try {
-    let result = await userData(req.body.formData);
+    let result = await userData(req.body);
     result = await result.save();
     const email = result.email;
 

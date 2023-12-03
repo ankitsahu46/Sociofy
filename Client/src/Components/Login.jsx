@@ -4,12 +4,10 @@ import { Form } from "./";
 function Login() {
   const navigate = useNavigate();
 
-  const handleSubmit = async (e, formData) => {
-    e.preventDefault();
-
+  const verifyUser = async (formData, submitBtnRef) => {
     const response = await fetch('http://localhost:8080/login', {
       method: "POST",
-      body: JSON.stringify({ formData }),
+      body: JSON.stringify({ email: formData.email, password: formData.password }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -21,12 +19,13 @@ function Login() {
       navigate("/");
     }
     else {
-      alert("Couldn't login! Please try again.")
+      alert("Couldn't login! Please try again.");
+      submitBtnRef.current.disabled = false;
     }
   }
 
   return (
-    <Form name="Login" handleSubmit={handleSubmit} />
+    <Form name="Login" func={verifyUser} />
   )
 }
 

@@ -4,12 +4,17 @@ import { Form } from "./";
 function SignUp() {
   const navigate = useNavigate();
 
-  const handleSubmit = async (e, formData) => {
-    e.preventDefault();
+  const registerUser = async (formData, submitBtnRef) => {
+    const { email, password, username, name } = formData;
 
     const response = await fetch('http://localhost:8080/signup', {
       method: "POST",
-      body: JSON.stringify({ formData }),
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        username: username.toLowerCase(),
+        name: name
+      }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -22,11 +27,12 @@ function SignUp() {
     }
     else {
       alert("Couldn't signup! Please try again.")
+      submitBtnRef.current.disabled = false;
     }
   }
 
   return (
-    <Form name="Sign Up" handleSubmit={handleSubmit}/>
+    <Form name="Sign Up" func={registerUser} isSignup={true} />
   )
 }
 

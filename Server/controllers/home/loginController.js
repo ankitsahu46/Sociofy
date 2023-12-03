@@ -3,7 +3,7 @@ import Jwt from 'jsonwebtoken';
 
 const login = async (req, res) => {
   try {
-    const result = await userData.findOne(req.body.formData);
+    const result = await userData.findOne(req.body);
     const email = result.email;
 
     Jwt.sign({ email }, process.env.JWT_KEY, (err, token) => {
