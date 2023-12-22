@@ -1,0 +1,52 @@
+import userData from "../../models/userData.js";
+import { v2 as cloudinary } from "cloudinary";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
+const uploadFile = async (file) => {
+  const imgFile = await cloudinary.uploader.upload(file, {
+    resource_type: 'auto',
+  });
+  return imgFile;
+}
+
+const postImg = async (req, res) => {
+  try {
+    const { username, email } = req.body;
+    const { buffer, mimetype } = req.file;
+    
+    const b64 = Buffer.from(buffer).toString('base64');
+    let dataURI = 'data:'+ mimetype + ';base64,' + b64;
+    const imgFile = await uploadFile(dataURI);
+
+    const result = await userData.updateOne(
+      { email: email, username: username },
+      {
+        $addToSet: {
+          posts: {
+            postImg: imgFile.url,
+            userImg: "",
+            username: username,
+            likes: 0,
+            comments: 0,
+            shares: 0,
+            likers: [],
+            comments_all: [],
+          },
+        },
+      },
+      );
+    res.status(200).send({ success: true, message: "Posted successfully."});
+  } catch (err) {
+    res.status(500).send({ success: false, message: "Couldn't Post Image!"});
+  }
+};
+
+export { postImg };

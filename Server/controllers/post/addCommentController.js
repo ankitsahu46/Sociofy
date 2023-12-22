@@ -6,10 +6,10 @@ const addComment = async (req, res) => {
       { _id: req.params.id },
       {
         $addToSet: {
-        commentsall: {
+          commentsall: {
             commenterusername: req.body.username,
             comment: req.body.comment,
-            commenterimg: req.body.img
+            commenterimg: req.body.img,
           },
         },
       }

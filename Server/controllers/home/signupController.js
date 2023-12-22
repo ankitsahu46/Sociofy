@@ -12,7 +12,7 @@ const signup = async (req, res) => {
       if (err) {
         res.status(500).send({ success: false, massage: "Something went wrong" });
       }
-      res.status(200).send({ success: true, auth: token, message: "Signup successful."})
+      res.status(200).send({ success: true, result: result, auth: token, message: "Signup successful."})
     })
   }
   catch (err) {

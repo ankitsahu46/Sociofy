@@ -3,7 +3,14 @@ import Jwt from 'jsonwebtoken';
 
 const login = async (req, res) => {
   try {
-    const result = await userData.findOne(req.body);
+    const result = await userData.findOne({
+      password: req.body.password,
+      $or: [
+        {email: req.body.email},
+        {username: req.body.email}
+      ]
+    }).select({posts: 0});
+    
     const email = result.email;
 
     Jwt.sign({ email }, process.env.JWT_KEY, (err, token) => {
@@ -11,7 +18,7 @@ const login = async (req, res) => {
         res.status(500).send({ success: false, message: "Something went wrong" });
       }
       else if (result) {
-        res.status(200).send({ success: true, auth: token, message: "login Successful."})
+        res.status(200).send({ success: true, result: result, auth: token, message: "login Successful."})
       }
       else {
         res.status(404).send({ success: false, massage: "Can't find user."});
