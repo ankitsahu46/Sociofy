@@ -13,8 +13,10 @@ import moreActive from './moreActive.svg';
 import comment from './comment.svg';
 import share from './share.svg';
 import options from './options.svg';
-import noimage from './noimage.png';
+import noImage from './noImage.png';
 import deleteIcon from './deleteIcon.svg';
 import wave from './wave.svg'; 
+import preview from './preview.png';
+import crossIcon from './crossIcon.svg';
 
-export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noimage, deleteIcon, wave };
+export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noImage, deleteIcon, wave, preview, crossIcon };

@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 import { useState, useRef } from "react";
-import { wave } from "../assets";
+import { wave } from "../../assets";
 
-export default function Form({ name, isSignup = false, func }) {
+export default function Form({ name, isSignUp = false, func }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,8 +21,9 @@ export default function Form({ name, isSignup = false, func }) {
   const submitBtnRef = useRef(null);
 
   const { eightCharacters, oneLower, oneUpper, oneNumber, oneSpecialCharacter } = isValidPassword;
-  const type = isSignup ? "email" : "text";
-  const placeholder = isSignup ? "Email" : "Email or Username";
+  const type = isSignUp ? "email" : "text";
+  const placeholder = isSignUp ? "Email" : "Email or Username";
+  const switchTo = isSignUp ? "Log In" : "Sign Up";
 
   let usernameUnderlineText = getUsernameUnderlineText(isAvailable);
 
@@ -62,7 +63,7 @@ export default function Form({ name, isSignup = false, func }) {
     e.preventDefault();
     submitBtnRef.current.disabled = true;
 
-    if (isSignup) {
+    if (isSignUp) {
       if (isAvailable !== true) {                              //|| formData.username.trim().length === 0
         alert("Please choose a valid username!");
         submitBtnRef.current.disabled = false;
@@ -83,13 +84,13 @@ export default function Form({ name, isSignup = false, func }) {
     <div className="w-full h-[100vh] llg:bg-gradient-to-r from-[var(--blue)] to-[var(--blue-semidark2)] lg:bg-gray-200 flex items-center justify-center">
       <div className="flex justify-center items-center w-[80%] sm:w-[65%] md:w-[50%] lg:w-[80%] rounded-2xl shadow-lg overflow-hidden h-[80vh] max-h-[90vh] bg-white">
         {/* Login/Sign-up form */}
-        <div className="w-full lg:w-[50%] flex flex-col min-h-[75vh] items-center justify-center bg-white m-auto rounded-2xl lg:rounded-l-2xl lg:rounded-r-none py-5">
+        <div className="w-full lg:w-[50%] flex flex-col min-h-[75vh] items-center justify-center bg-white m-auto rounded-2xl lg:rounded-l-2xl lg:rounded-r-none py-5 z-10">
           <div className="text-2xl font-bold text-[var(--blue)] border-b-[2px] border-[var(--blue)]">{name}</div>
 
           <form onSubmit={(e) => handleSubmit(e, formData)} className="flex flex-col justify-center items-center mt-12 w-full max-w-[400px] gap-7">
             <Input type={type} name="email" value={formData.email} handleChange={handleChange} placeholder={placeholder} />
             {
-              isSignup &&
+              isSignUp &&
               <>
                 <Input type="text" name="name" value={formData.name} handleChange={handleChange} placeholder="Name" />
                 <Input type="text" name="username" value={formData.username} handleChange={handleUsernameChange} placeholder="Username" >
@@ -116,10 +117,10 @@ export default function Form({ name, isSignup = false, func }) {
             </button>
           </form>
 
-          <p className="mt-2">
-            <span className="text-sm">Don't have an account? </span>
-            <span className="text-blue-700 font-medium text-sm cursor-pointer"><a href={name === "Sign Up" ? "/login" : "/signup"}>{name === "Sign Up" ? "Log In" : "Sign Up"}</a></span>
-          </p>
+          <div className="flex items-center mt-2">
+            <p className="text-sm mr-2">Don't have an account? </p>
+            <a href={isSignUp ? "/login" : "/signup"} rel="noreferrer"><span className="text-blue-700 font-medium text-md cursor-pointer">{switchTo}</span></a>
+          </div>
         </div>
 
         <Wave />
@@ -128,14 +129,16 @@ export default function Form({ name, isSignup = false, func }) {
     </div>
   )
 }
-
-
-
-
-
-
-
-
+// .
+// .
+// .
+// .
+// .
+// .
+// .
+// .
+// .
+// .
 const Input = ({ type, name, value, handleChange, placeholder, children }) => {
   return (
     <>
@@ -157,7 +160,7 @@ const getUsernameUnderlineText = (isAvailable) => {
 
 const Wave = () => {
   return (
-    <div className="relative h-[100%] aspect-auto hidden lg:flex items-center scale-[7] ">
+    <div className="relative h-[100%] aspect-auto hidden lg:flex items-center scale-[7]">
       <img src={wave} alt="" className="-rotate-90 w-[5rem]" />
     </div>
   )

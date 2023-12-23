@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Form } from "./";
+import { Form } from "..";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,6 +16,11 @@ function Login() {
 
     if (result.success) {
       localStorage.setItem('token', JSON.stringify(result.auth));
+      localStorage.setItem('name', JSON.stringify(result.result.name));
+      localStorage.setItem('username', JSON.stringify(result.result.username));
+      localStorage.setItem('email', JSON.stringify(result.result.email));
+      localStorage.setItem('user_id', JSON.stringify(result.result._id));
+
       navigate("/");
     }
     else {

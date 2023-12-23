@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { notification, notificationActive, share, comment } from "../assets";
-import { PostReact } from "./";
+import { notification, notificationActive, share, comment } from "../../assets";
+import { PostReact } from "..";
 
 function PostReactBox({ liked, setLiked, likers = [], allComments = [], shares, postId }) {
   const [likeCount, setLikeCount] = useState(likers.length);

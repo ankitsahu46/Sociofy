@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Comment } from '.';
-import { profilePic } from '../assets';
+import { Comment } from '..';
 
 function CommentSection(props) {
   const { setAllComments, allComments = [], showComment, pendingComment, cmt, postId } = props;
-  
+  const username = JSON.parse(localStorage.getItem('username'));
+  const img = JSON.parse(localStorage.getItem('img'));
+
   const handleDeleteComment = async (id) => {
     const response = await fetch(`http://localhost:8080/post/deletecomment/${postId}/${id}`, {
       method: 'DELETE',
@@ -24,7 +25,7 @@ function CommentSection(props) {
 
   return (
     <>
-      <div>
+      <div className='min-h-full'>
         <div className={`max-h-48 overflow-y-scroll rounded-2xl custom-scroll-bar  ${allComments.length > 2 && "border-b-[0.5px]"}`}>
           <div className={`flex flex-col-reverse gap-3 ${allComments.length && "py-3"}`}>
             {
@@ -34,7 +35,7 @@ function CommentSection(props) {
             }
             {
               showComment &&
-              <Comment comment={cmt.current} commenterusername="ankitsahu_78" commenterimg={profilePic} pending={pendingComment} />
+              <Comment comment={cmt.current} commenter_username={username} commenter_img={img} pending={pendingComment} />
             }
           </div>
         </div>

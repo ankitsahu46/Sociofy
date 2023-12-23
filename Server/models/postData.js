@@ -8,11 +8,18 @@ const postDataSchema = new mongoose.Schema({
   comments: Number,
   shares: Number,
   likers: [String],
-  commentsall: [{
-      commenterimg: String,
-      commenterusername: String,
-      comment: String
-  }],
+  comments_all: [
+    {
+      commenter_img: String,
+      commenter_username: String,
+      comment: String,
+    },
+  ],
+  // commentsall: [{
+  //     commenterimg: String,
+  //     commenterusername: String,
+  //     comment: String
+  // }],
 })
 
 export default mongoose.model('all_posts', postDataSchema);

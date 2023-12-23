@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { CommentBox, PostReactBox, PostOwnerInfo, PostImg } from './';
+import { CommentBox, PostReactBox, PostOwnerInfo, PostImg } from '..';
 import { useEffect, useState } from 'react';
 
 function Post(props) {
-  const { postImg, userImg, username, _id, shares, commentsall = [], likers = [] } = props;
+  const { postImg, userImg, username, _id, shares, comments_all = [], likers = [] } = props;
   const [liked, setLiked] = useState(false);
-  const [allComments, setAllComments] = useState(commentsall);
+  const [allComments, setAllComments] = useState(comments_all);
 
   const postReactBoxProps = {
     liked,

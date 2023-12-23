@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { noimage, deleteIcon } from "../assets";
-import { InfoBox } from ".";
+import { noImage, deleteIcon } from "../../assets";
+import { InfoBox } from "..";
 
-function Comment({ _id, commenterimg, commenterusername, comment, pending, handleDelete }) {
+function Comment({ _id, commenter_img, commenter_username, comment, pending, handleDelete }) {
   const [deletePending, setDeletePending] = useState(false);
 
   const handleClick = (id) => {
@@ -13,17 +13,17 @@ function Comment({ _id, commenterimg, commenterusername, comment, pending, handl
 
   return (
     <div className="flex pl-3 pr-3">
-      <a href={`https://www.instagram.com/${commenterusername}/`} target="_blank" rel="noreferrer">
+      <a href={`https://www.instagram.com/${commenter_username}/`} target="_blank" rel="noreferrer">
         <div className="w-8 h-8 mt-1">
-          <img src={commenterimg ? commenterimg : noimage} alt="" className="rounded-full w-7 h-7" />
+          <img src={commenter_img ? commenter_img : noImage} alt="" className="rounded-full w-7 h-7" />
         </div>
       </a>
 
       <div className="w-full ml-1">
         <div className="px-3 pt-1 pb-2 bg-gray-200 rounded-lg rounded-tl-[0px] w-full">
           <div className="flex justify-between items-center mb-1">
-            <a href={`https://www.instagram.com/${commenterusername}/`} target="_blank" rel="noreferrer">
-              <span className="text-sm font-medium">{commenterusername}</span>
+            <a href={`https://www.instagram.com/${commenter_username}/`} target="_blank" rel="noreferrer">
+              <span className="text-sm font-medium">{commenter_username}</span>
             </a>
             <InfoBox name="Delete" position="top-2 -left-16">
               <span onClick={() => handleClick(_id)}><img src={deleteIcon} alt="" className="cursor-pointer w-3 h-3 opacity-50" /></span>

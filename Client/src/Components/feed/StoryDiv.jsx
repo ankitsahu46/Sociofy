@@ -1,5 +1,5 @@
-import { profilePic } from "../assets"
-import { Story } from "./"
+import { profilePic } from "../../assets"
+import { Story } from ".."
 
 function StoryDiv() {
   return (

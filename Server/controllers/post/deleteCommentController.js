@@ -6,7 +6,7 @@ const deleteComment = async (req, res) => {
       { _id: req.params._id },
       {
         $pull: {
-          commentsall: {
+          comments_all: {
             _id: req.params.id,
           },
         },

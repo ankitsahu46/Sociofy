@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef } from "react";
-import { AddComment, CommentSection } from "./";
+import { AddComment, CommentSection } from "..";
 
 
 function CommentBox({ allComments, setAllComments, postId }) {

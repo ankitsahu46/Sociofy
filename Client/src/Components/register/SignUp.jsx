@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Form } from "./";
+import { Form } from "..";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -13,7 +13,9 @@ function SignUp() {
         email: email,
         password: password,
         username: username.toLowerCase(),
-        name: name
+        name: name,
+        img: "",
+        posts: []
       }),
       headers: {
         "Content-Type": "application/json"
@@ -23,6 +25,11 @@ function SignUp() {
 
     if (result.success) {
       localStorage.setItem("token", JSON.stringify(result.auth));
+      localStorage.setItem('name', JSON.stringify(result.result.name));
+      localStorage.setItem('username', JSON.stringify(result.result.username));
+      localStorage.setItem('email', JSON.stringify(result.result.email));
+      localStorage.setItem('user_id', JSON.stringify(result.result._id));
+      // localStorage.setItem('profilePic', JSON.stringify(result.result.profilePic));
       navigate("/");
     }
     else {
@@ -32,7 +39,7 @@ function SignUp() {
   }
 
   return (
-    <Form name="Sign Up" func={registerUser} isSignup={true} />
+    <Form name="Sign Up" func={registerUser} isSignUp={true} />
   )
 }
 

@@ -6,10 +6,10 @@ const addComment = async (req, res) => {
       { _id: req.params.id },
       {
         $addToSet: {
-          commentsall: {
-            commenterusername: req.body.username,
+          comments_all: {
+            commenter_username: req.body.username,
             comment: req.body.comment,
-            commenterimg: req.body.img,
+            commenter_img: req.body.img,
           },
         },
       }
@@ -22,7 +22,7 @@ const addComment = async (req, res) => {
     console.log(result);
   } catch (err) {
     res.status(500).send({ success: false, message: "Couldn't add comment" });
-    console.log("Coundln add comment");
+    console.log("Couldn't add comment");
   }
 };
 

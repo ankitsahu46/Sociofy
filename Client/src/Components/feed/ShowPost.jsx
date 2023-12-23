@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Loading, Post } from "./";
+import { Loading, Post } from "..";
 import { useParams } from 'react-router-dom';
 
 function ShowPost() {

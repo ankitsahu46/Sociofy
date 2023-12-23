@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Main } from './pages';
+import { Home, Main, SideSection, Profile } from './pages';
 import { Login, PrivateComponent, ShowPost, SignUp } from './Components';
 
 function App() {
@@ -11,7 +11,17 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route element={<PrivateComponent />} >
-                <Route path="/" element={<Main />} />
+                <Route path="/" element={
+                  <Main>
+                    <Home />
+                    <SideSection />
+                  </Main>
+                } />
+                <Route path="/profile" element={
+                  <Main>
+                    <Profile />
+                  </Main>
+                } />
                 <Route path="/post/see/:id" element={<ShowPost />} />
               </Route>
               <Route path="/login" element={<Login />} />

@@ -5,8 +5,10 @@
 @layer base {
   :root {
     --blue: #29caff;
+    --blue-hover: #2bb9e9;
     --blue-semidark: #20a1cc;
     --blue-semidark2: #4896fc;
+    --blue-semidark-hover: #3f83db;
     --blue-dark: #03ade6;
   }
 }

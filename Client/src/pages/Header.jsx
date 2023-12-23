@@ -1,4 +1,4 @@
-import { InfoBox, Nav } from "../Components";
+import { InfoBox, Nav, PostUploadModal } from "../Components";
 import {
   home,
   homeActive,
@@ -8,7 +8,7 @@ import {
   postActive,
   notification,
   notificationActive,
-  profilePic,
+  noImage,
   logo,
   more,
   moreActive,
@@ -17,16 +17,18 @@ import { useState } from "react";
 
 function Header() {
   const [nav, setNav] = useState("home");
+  const [showPostModal, setShowPostModal] = useState(false);
+
+  const img = JSON.parse(localStorage.getItem('img'));
 
   const Search = nav === "search" ? searchActive : search;
   const Home = nav === "home" ? homeActive : home;
   const Post = nav === "post" ? postActive : post;
-  const Notification =
-    nav === "notification" ? notificationActive : notification;
+  const Notification = nav === "notification" ? notificationActive : notification;
   const More = nav === "more" ? moreActive : more;
 
-  const handleClick = (navName) => {
-    setNav(navName);
+  const toggleModal = () => {
+    setShowPostModal(!showPostModal);
   };
   return (
     <>
@@ -48,19 +50,19 @@ function Header() {
         <nav className=" flex md:flex-col  justify-around items-center md:justify-center xl:items-start md:[&>*:nth-child(3)]:order-1 w-full">
           {[
             [Search, "Search", "/login"],
-            [Post, "Post", "/signup"],
+            [Post, "Post", toggleModal],
             [Home, "Home", "/"],
             [Notification, "Notification", "#"],
-            [profilePic, "Profile", "https://www.instagram.com/mister_2.0/"],
+            [img ? img : noImage, "Profile", "/profile"],
           ].map((navInfo) => (
-            <Nav key={navInfo[1]} handleClick={handleClick} {...navInfo} />
+            <Nav key={navInfo[1]} setNav={setNav} nav={nav} navInfo={navInfo} />
           ))}
         </nav>
 
         {/* More options */}
         <div
           onClick={() => {
-            handleClick("more");
+            setNav("more");
           }}
           className="hidden md:flex justify-center items-center xl:justify-start hover:bg-gray-200 transition-all rounded-lg h-12 xl:pl-3 w-full cursor-pointer"
         >
@@ -70,6 +72,13 @@ function Header() {
           <span className="hidden xl:block font-medium text-lg text-[#494949] pl-2">
             More
           </span>
+        </div>
+
+        {/* Post modal */}
+        <div className="fixed">
+          {showPostModal &&
+            <PostUploadModal setShowPostModal={setShowPostModal} />
+          }
         </div>
       </header>
     </>

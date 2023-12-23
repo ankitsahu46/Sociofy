@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { profilePic } from "../assets";
+import { noImage } from "../../assets";
 
 function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, commentState, postId }) {
   const [addComment, setAddComment] = useState("");
   const [sendBtn, setSendBtn] = useState(false);
+  const username = JSON.parse(localStorage.getItem('username'));
+  const img = JSON.parse(localStorage.getItem('img'));
 
   const handleAddCommentChange = (e) => {
     setAddComment(e.target.value);
@@ -20,7 +22,7 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
 
     const response = await fetch(`http://localhost:8080/post/addcomment/${postId}`, {
       method: "POST",
-      body: JSON.stringify({ comment: addComment, username: "mister_2.0", img: profilePic }),
+      body: JSON.stringify({ comment: addComment, username: username, img: img }),
       headers: {
         "Content-Type": "application/json",
       }
@@ -54,8 +56,8 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
   return (
     <div className="flex py-5 items-center w-full gap-2">
       <div className="w-11 h-11 flex justify-center items-center">
-        <a href={`https://www.instagram.com/${profilePic}/`} target="_blank" rel="noreferrer">
-          <img src={profilePic} alt="" className="rounded-full" />
+        <a href={`https://www.instagram.com/${username}/`} target="_blank" rel="noreferrer">
+          <img src={img ? img : noImage} alt="" className="rounded-full" />
         </a>
       </div>
       <div className='w-full flex gap-2'>

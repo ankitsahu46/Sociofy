@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { options } from "../assets";
-import { InfoBox } from "./";
+import { noImage, options } from "../../assets";
+import { InfoBox } from "..";
 
 function PostOwnerInfo({ userImg, username }) {
   return (
@@ -8,7 +8,7 @@ function PostOwnerInfo({ userImg, username }) {
       <div className="cursor-pointer">
         <a href="https://www.instagram.com/mister_2.0/" target="_blank" rel="noreferrer" className="flex justify-center items-center">
           <div className="w-9 h-9 border-[1px] border-[var(--blue)] flex justify-center items-center rounded-full ">
-            <img src={userImg} alt="" className="w-8 h-8 rounded-full" />
+            <img src={userImg ? userImg : noImage} alt="" className="w-8 h-8 rounded-full" />
           </div>
           <div className="ml-2 text-sm font-medium">
             {username}
