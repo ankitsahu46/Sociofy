@@ -19,6 +19,22 @@ export default {
         "llg": {
           "max": "1024px"
         }
+      },
+      keyframes: {
+        fadeInFadeOut: {
+          '0%': {
+            opacity: '0',
+          },
+          '10%, 90%': {
+            opacity: '1',
+          },
+          '100%': {
+            opacity: '0'
+          }
+        }
+      },
+      animation: {
+        fadeInFadeOut: "fadeInFadeOut 3s ease-in-out backwards",
       }
     },
   },

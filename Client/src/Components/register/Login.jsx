@@ -19,6 +19,7 @@ function Login() {
       localStorage.setItem('name', JSON.stringify(result.result.name));
       localStorage.setItem('username', JSON.stringify(result.result.username));
       localStorage.setItem('email', JSON.stringify(result.result.email));
+      localStorage.setItem('img', JSON.stringify(result.result.img));
       localStorage.setItem('user_id', JSON.stringify(result.result._id));
 
       navigate("/");

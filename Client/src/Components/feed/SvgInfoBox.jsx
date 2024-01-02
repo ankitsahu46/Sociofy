@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-function InfoBox({ name, position, children }) {
+function SvgInfoBox({ name, position, children }) {
   const [appear, setAppear] = useState(false);
   var timeout;
 
@@ -26,4 +26,4 @@ function InfoBox({ name, position, children }) {
   )
 }
 
-export default InfoBox
+export default SvgInfoBox

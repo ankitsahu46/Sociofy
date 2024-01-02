@@ -1,4 +1,5 @@
-import { InfoBox, Nav, PostUploadModal } from "../Components";
+import { useNavigate } from "react-router-dom";
+import { SvgInfoBox, Nav, PostUploadModal, SearchModal } from "../Components";
 import {
   home,
   homeActive,
@@ -10,35 +11,38 @@ import {
   notificationActive,
   noImage,
   logo,
-  more,
-  moreActive,
+  logOutIcon,
 } from "../assets";
 import { useState } from "react";
 
 function Header() {
-  const [nav, setNav] = useState("home");
-  const [showPostModal, setShowPostModal] = useState(false);
-
   const img = JSON.parse(localStorage.getItem('img'));
+  let location = window.location.pathname.substring(1);
+  location = location || "home";
 
+  const [nav, setNav] = useState(location);
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const navigate = useNavigate();
+
+  if (location !== nav) setNav(location);
   const Search = nav === "search" ? searchActive : search;
   const Home = nav === "home" ? homeActive : home;
   const Post = nav === "post" ? postActive : post;
   const Notification = nav === "notification" ? notificationActive : notification;
-  const More = nav === "more" ? moreActive : more;
 
-  const toggleModal = () => {
-    setShowPostModal(!showPostModal);
-  };
+  const togglePostModal = () => setShowPostModal(!showPostModal);
+  const toggleSearchModal = () => setShowSearchModal(!showSearchModal);
+
   return (
     <>
       <header className="fixed bottom-0 left-0 md:relative  md_x:max-w-[70px] xl:w-56 px-4 md:px-0 xl:px-4 md:py-4  w-full h-10 md:h-full md:min-h-[100vh] flex flex-col justify-center md:justify-between md:items-center xl:items-start order-2 md:order-1 bg-white border-r-[1px] border-t-2 md:border-t-0 md:border-l-2 border-gray-100">
         {/* Sociofy Logo and Name */}
         <div onClick={() => location.reload()} className="hidden md:flex justify-center  items-center xl:justify-start xl:pl-2">
           <a href="#" className="flex">
-            <InfoBox name="Sociofy" position={"left-8"}>
+            <SvgInfoBox name="Sociofy" position={"left-8"}>
               <img src={logo} alt="logo" className="w-8 h-8" />
-            </InfoBox>
+            </SvgInfoBox>
             <h1 className="hidden xl:block font-bold text-2xl pb-1 pl-2 ">
               <span className="bg-gradient-to-r from-[#60daf8] to-[#2c7b8f] text-transparent bg-clip-text">
                 Sociofy
@@ -47,30 +51,32 @@ function Header() {
           </a>
         </div>
 
+        {/* navigation links */}
         <nav className=" flex md:flex-col  justify-around items-center md:justify-center xl:items-start md:[&>*:nth-child(3)]:order-1 w-full">
           {[
-            [Search, "Search", "/login"],
-            [Post, "Post", toggleModal],
+            [Search, "Search", toggleSearchModal],
+            [Post, "Post", togglePostModal],
             [Home, "Home", "/"],
-            [Notification, "Notification", "#"],
+            [Notification, "Notification", "/login"],
             [img ? img : noImage, "Profile", "/profile"],
           ].map((navInfo) => (
             <Nav key={navInfo[1]} setNav={setNav} nav={nav} navInfo={navInfo} />
           ))}
         </nav>
 
-        {/* More options */}
+        {/* Logout */}
         <div
           onClick={() => {
-            setNav("more");
+            localStorage.clear();
+            navigate('/login');
           }}
           className="hidden md:flex justify-center items-center xl:justify-start hover:bg-gray-200 transition-all rounded-lg h-12 xl:pl-3 w-full cursor-pointer"
         >
-          <InfoBox name="More" position={"-top-10"}>
-            <img src={More} alt="logo" className="w-5 h-5" />
-          </InfoBox>
+          <SvgInfoBox name="Logout" position={"-top-10"}>
+            <img src={logOutIcon} alt="logo" className="w-5 h-5" />
+          </SvgInfoBox>
           <span className="hidden xl:block font-medium text-lg text-[#494949] pl-2">
-            More
+            Logout
           </span>
         </div>
 
@@ -78,6 +84,13 @@ function Header() {
         <div className="fixed">
           {showPostModal &&
             <PostUploadModal setShowPostModal={setShowPostModal} />
+          }
+        </div>
+
+        {/* Search modal */}
+        <div className="fixed">
+          {showSearchModal &&
+            <SearchModal setShowSearchModal={setShowSearchModal} />
           }
         </div>
       </header>

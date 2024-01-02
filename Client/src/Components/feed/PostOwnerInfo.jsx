@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { noImage, options } from "../../assets";
-import { InfoBox } from "..";
+import { SvgInfoBox } from "..";
 
 function PostOwnerInfo({ userImg, username }) {
   return (
@@ -15,9 +15,9 @@ function PostOwnerInfo({ userImg, username }) {
           </div>
         </a>
       </div>
-      <InfoBox name="Options" position={"top-5 -left-16"}>
+      <SvgInfoBox name="Options" position={"top-5 -left-16"}>
         <img src={options} alt="" className="rotate-90 cursor-pointer" />
-      </InfoBox>
+      </SvgInfoBox>
     </div>
   )
 }

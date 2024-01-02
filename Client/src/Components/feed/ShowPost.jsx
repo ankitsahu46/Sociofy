@@ -5,23 +5,23 @@ import { useParams } from 'react-router-dom';
 function ShowPost() {
   const [postData, setPostData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+  const { id, post_id, i } = useParams();
 
-  const getPostData = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/post/see/${id}`);
-      const result = await response.json();
-      setPostData(result.data);
-    }
-    catch (err) {
-      console.log("Could not find post");
-    }
-    setLoading(false);
-  }
-
+  
   useEffect(() => {
+    const getPostData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/post/see/${id}/${post_id}/${i}`);
+        const result = await response.json();
+        setPostData(result.data);
+      }
+      catch (err) {
+        console.log("Could not find post");
+      }
+      setLoading(false);
+    }
     getPostData();
-  }, [])
+  }, [id, post_id, i])
 
   return (
     <>
@@ -32,7 +32,7 @@ function ShowPost() {
               <div className="w-full max-w-[600px]">
                 {
                   postData ?
-                    <Post {...postData} />
+                    <Post {...postData} i={i} id={id}/>
                     :
                     <Loading loading={loading} classes='h-[calc(100vh-2.5rem)]' />
                 }

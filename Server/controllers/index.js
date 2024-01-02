@@ -11,6 +11,8 @@ import { likeCount } from "./post/likeCountController.js";
 import { incdecLikes } from "./post/likesController.js";
 import { postImg } from "./post/postImgController.js";
 import { getProfilePosts } from "./profile/getProfilePostsController.js";
+import { getUserProfileData } from "./profile/getUserProfileDataController.js";
+import { getUsers } from "./search/getUsersController.js";
 
 export {
   signup,
@@ -25,5 +27,7 @@ export {
   incdecLikes,
   getPostData,
   getProfilePosts,
-  postImg
+  postImg,
+  getUsers,
+  getUserProfileData,
 };

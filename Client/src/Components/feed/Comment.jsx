@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { noImage, deleteIcon } from "../../assets";
-import { InfoBox } from "..";
+import { SvgInfoBox } from "..";
 
-function Comment({ _id, commenter_img, commenter_username, comment, pending, handleDelete }) {
+function Comment(props) {
+  const { _id, commenter_img, commenter_username, comment, pending, handleDelete } = props;
   const [deletePending, setDeletePending] = useState(false);
 
-  const handleClick = (id) => {
-    handleDelete(id);
+  const handleClick = (commentId) => {
+    handleDelete(commentId);
     setDeletePending(true);
   }
 
@@ -25,9 +26,9 @@ function Comment({ _id, commenter_img, commenter_username, comment, pending, han
             <a href={`https://www.instagram.com/${commenter_username}/`} target="_blank" rel="noreferrer">
               <span className="text-sm font-medium">{commenter_username}</span>
             </a>
-            <InfoBox name="Delete" position="top-2 -left-16">
+            <SvgInfoBox name="Delete" position="top-2 -left-16">
               <span onClick={() => handleClick(_id)}><img src={deleteIcon} alt="" className="cursor-pointer w-3 h-3 opacity-50" /></span>
-            </InfoBox>
+            </SvgInfoBox>
           </div>
           <div className="font-normal text-sm text-gray-600">
             {comment}

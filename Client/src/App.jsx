@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Home, Main, SideSection, Profile } from './pages';
-import { Login, PrivateComponent, ShowPost, SignUp } from './Components';
+import { Home, Main, SideSection, MyProfile } from './pages';
+import { Login, PrivateComponent, ShowPost, ShowProfile, SignUp } from './Components';
 
 function App() {
   return (
@@ -19,10 +19,14 @@ function App() {
                 } />
                 <Route path="/profile" element={
                   <Main>
-                    <Profile />
+                    <MyProfile />
                   </Main>
                 } />
-                <Route path="/post/see/:id" element={<ShowPost />} />
+                <Route path="/profile/see" element={
+                  <Main>
+                    <ShowProfile />
+                  </Main>} />
+                <Route path="/profile/post/see/:id/:post_id/:i" element={<ShowPost />} />
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />

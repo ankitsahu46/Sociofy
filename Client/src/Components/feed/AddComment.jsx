@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { noImage } from "../../assets";
+import { ReactionInfoBox } from "../";
 
-function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, commentState, postId }) {
+function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, commentState, postId, i, id }) {
   const [addComment, setAddComment] = useState("");
   const [sendBtn, setSendBtn] = useState(false);
+  const [addCommentReaction, setAddCommentReaction] = useState(false);
+
   const username = JSON.parse(localStorage.getItem('username'));
   const img = JSON.parse(localStorage.getItem('img'));
 
@@ -20,18 +23,34 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
     setShowComment(true);
     setPendingComment(commentState[0]);
 
-    const response = await fetch(`http://localhost:8080/post/addcomment/${postId}`, {
-      method: "POST",
-      body: JSON.stringify({ comment: addComment, username: username, img: img }),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
-    const result = await response.json();
-    setPendingComment(commentState[1]);
+    let result;
+
+    try {
+      const response = await fetch(`http://localhost:8080/post/add_comment/${id}/${postId}/${i}`, {
+        method: "POST",
+        body: JSON.stringify({ comment: addComment, username: username, img: img }),
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      result = await response.json();
+    }
+    catch (err) {
+      setAddCommentReaction(true);
+      setTimeout(() => {
+        setAddCommentReaction(false)
+      }, 3000);
+
+      setPendingComment(commentState[2]);
+
+      setTimeout(() => {
+        setPendingComment(commentState[1]);
+        setShowComment(false);
+      }, 3000)
+    }
 
     if (result.success) {
-      const response2 = await fetch(`http://localhost:8080/post/getcomments/${postId}`);
+      const response2 = await fetch(`http://localhost:8080/post/get_comments/${id}/${postId}/${i}`);
       const result2 = await response2.json();
 
       if (result2.success) {
@@ -43,21 +62,13 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
       setPendingComment(commentState[1]);
       setShowComment(false);
     }
-    else {
-      setPendingComment(commentState[2]);
-
-      setTimeout(() => {
-        setPendingComment(commentState[1]);
-        setShowComment(false);
-      }, 4000)
-    }
   }
-  
+
   return (
-    <div className="flex py-5 items-center w-full gap-2">
+    <div className="flex my-5 items-center w-full gap-2">
       <div className="w-11 h-11 flex justify-center items-center">
         <a href={`https://www.instagram.com/${username}/`} target="_blank" rel="noreferrer">
-          <img src={img ? img : noImage} alt="" className="rounded-full" />
+          <img src={img ? img : noImage} alt="" className="rounded-full border" />
         </a>
       </div>
       <div className='w-full flex gap-2'>
@@ -69,6 +80,8 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
           </button>
         }
       </div>
+
+      <ReactionInfoBox showInfo={addCommentReaction} text="Couldn't add comment." />
     </div>
   )
 }

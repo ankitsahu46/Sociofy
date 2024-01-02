@@ -1,41 +1,73 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { notification, notificationActive, share, comment } from "../../assets";
-import { PostReact } from "..";
+import { PostReact, ReactionInfoBox } from "..";
 
-function PostReactBox({ liked, setLiked, likers = [], allComments = [], shares, postId }) {
-  const [likeCount, setLikeCount] = useState(likers.length);
+function PostReactBox(props) {
+  const { likeCount, allComments = [], shares, postId, i, setLikeCount, id } = props;
+  const [liked, setLiked] = useState(false);
+  const [likedReaction, setLikedReaction] = useState(false);
+
+  const myUsername = JSON.parse(localStorage.getItem('username'));
+
 
   const handleLiked = async () => {
     setLiked(!liked);
 
-    const response = await fetch(`http://localhost:8080/post/likes/${postId}?liked=${!liked}`, {
-      method: "PUT",
-      body: JSON.stringify({ liker: "mister_2.0" }),              //add current profile's username
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    if (response.ok) {
-      const response2 = await fetch(`http://localhost:8080/post/likecount/${postId}`);
-      const result2 = await response2.json();
+    try {
+      const response = await fetch(`http://localhost:8080/post/likes/${id}/${postId}/${i}?liked=${!liked}`, {
+        method: "PUT",
+        body: JSON.stringify({ liker: myUsername }),             
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
-      if (response2.ok) {
-        setLikeCount(result2.likeCount);
-      }
-      else {
-        setLikeCount(liked ? likeCount - 1 : likeCount + 1);
+      if (response.ok) {
+        const response2 = await fetch(`http://localhost:8080/post/like_count/${id}/${postId}/${i}`);
+        const result2 = await response2.json();
+
+        if (response2.ok) {
+          setLikeCount(result2.likeCount);
+        }
       }
     }
-    else {
-      await response.json();
+    catch (err) {
+      setTimeout(() => {
+        setLiked(liked);
+        setLikedReaction(true);
+      }, 1000);
+
+      setTimeout(() => {
+        setLikedReaction(false);
+      }, 3000);
     }
   }
+
+  useEffect(() => {
+    const checkLikedOrNot = async () => {
+      const response = await fetch(`http://localhost:8080/post/check_liked_or_not/${id}/${postId}/${i}`, {
+        method: "PUT",
+        body: JSON.stringify({ username: myUsername }),          //use current profile's username
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      if (response.ok) {
+        const result = await response.json();
+        setLiked(result.liked)
+      }
+      else {
+        await response.json();
+      }
+    }
+    checkLikedOrNot();
+  }, [i, id, postId, myUsername])
 
   const handleShare = async () => {
     const info = {
       title: "See post on Instagram",
-      url: "post/see/" + postId,
+      url: "post/see/" + id + "/" + postId + "/" + i,
       text: "Here's a Good post I found on Instagram. It may inspire you to work hard on your goals."
     }
 
@@ -65,6 +97,8 @@ function PostReactBox({ liked, setLiked, likers = [], allComments = [], shares, 
         <span>{" • "}{allComments.length} comments</span>
         <span>{" • "}{shares} shares</span>
       </div>
+
+      <ReactionInfoBox showInfo={likedReaction} text="Couldn't liked/disliked." />
     </>
   )
 }

@@ -1,46 +1,30 @@
 /* eslint-disable react/prop-types */
 import { CommentBox, PostReactBox, PostOwnerInfo, PostImg } from '..';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function Post(props) {
-  const { postImg, userImg, username, _id, shares, comments_all = [], likers = [] } = props;
-  const [liked, setLiked] = useState(false);
+  const { postImg, userImg, username, _id, shares, comments_all = [], likers = [], i, id } = props;
+  const [likeCount, setLikeCount] = useState(likers.length);
   const [allComments, setAllComments] = useState(comments_all);
 
   const postReactBoxProps = {
-    liked,
-    setLiked,
-    likers,
+    // liked,
+    // setLiked,
+    likeCount,
+    setLikeCount,
+    i,
     allComments,
     shares,
-    postId: _id
+    postId: _id,
+    id
   }
   const commentBoxProps = {
     allComments,
     setAllComments,
     postId: _id,
+    i,
+    id
   }
-
-  const checkLikedOrNot = async () => {
-    const response = await fetch(`http://localhost:8080/post/checklikedornot/${_id}`, {
-      method: "PUT",
-      body: JSON.stringify({ username: "mister_2.0" }),          //use current profile's username
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
-    if (response.ok) {
-      const result = await response.json();
-      setLiked(result.liked)
-    }
-    else {
-      await response.json();
-    }
-  }
-
-  useEffect(() => {
-    checkLikedOrNot();
-  }, [])
 
   return (
     <div className="w-full mb-6">

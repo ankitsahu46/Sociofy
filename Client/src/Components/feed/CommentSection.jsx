@@ -2,18 +2,18 @@
 import { Comment } from '..';
 
 function CommentSection(props) {
-  const { setAllComments, allComments = [], showComment, pendingComment, cmt, postId } = props;
+  const { setAllComments, allComments = [], showComment, pendingComment, cmt, postId, i, id } = props;
   const username = JSON.parse(localStorage.getItem('username'));
   const img = JSON.parse(localStorage.getItem('img'));
 
-  const handleDeleteComment = async (id) => {
-    const response = await fetch(`http://localhost:8080/post/deletecomment/${postId}/${id}`, {
+  const handleDeleteComment = async (commentId) => {
+    const response = await fetch(`http://localhost:8080/post/delete_comment/${id}/${postId}/${commentId}/${i}`, {
       method: 'DELETE',
     })
     const result = await response.json();
 
     if (result.success) {
-      const response2 = await fetch(`http://localhost:8080/post/getcomments/${postId}`);
+      const response2 = await fetch(`http://localhost:8080/post/get_comments/${id}/${postId}/${i}`);
       const result2 = await response2.json();
 
       setAllComments(result2.comments);
@@ -26,7 +26,7 @@ function CommentSection(props) {
   return (
     <>
       <div className='min-h-full'>
-        <div className={`max-h-48 overflow-y-scroll rounded-2xl custom-scroll-bar  ${allComments.length > 2 && "border-b-[0.5px]"}`}>
+        <div className={`rounded-2xl ${allComments.length > 2 && "border-b-[0.5px]"}`}>
           <div className={`flex flex-col-reverse gap-3 ${allComments.length && "py-3"}`}>
             {
               allComments.map((commenter) => (

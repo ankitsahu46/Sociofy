@@ -1,34 +1,32 @@
-import postData from "../../models/postData.js";
+import userData from "../../models/userData.js";
 
 const incdecLikes = async (req, res) => {
+  const { id, post_id, i } = req.params;
   // let inc = req.query.liked == "true" ? 1 : -1;
+  const findFor = { _id: id };
+  const increaseLike = { $addToSet: {} };
+  const decreaseLike = { $pull: {} };
+
+  findFor[`posts.${i}._id`] = post_id;
+  increaseLike.$addToSet[`posts.${i}.likers`] = req.body.liker;
+  decreaseLike.$pull[`posts.${i}.likers`] = req.body.liker;
 
   try {
     let changeLikes;
     if (req.query.liked == "true") {
-      changeLikes = await postData.updateOne(
+      changeLikes = await userData.updateOne(
         {
-          _id: req.params.id,
+          _id: id,
         },
-        {
-          // $inc: { likes: inc },
-          $push: {
-            likers: req.body.liker,
-          },
-        },
+        increaseLike,
         { new: true }
       );
-    } 
-    else {
-      changeLikes = await postData.updateOne(
+    } else {
+      changeLikes = await userData.updateOne(
         {
-          _id: req.params.id,
+          _id: id,
         },
-        {
-          $pull: {
-            likers: req.body.liker,
-          },
-        },
+        decreaseLike,
         { new: true }
       );
     }

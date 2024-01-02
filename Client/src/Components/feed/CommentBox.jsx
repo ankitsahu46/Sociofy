@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { AddComment, CommentSection } from "..";
 
 
-function CommentBox({ allComments, setAllComments, postId }) {
+function CommentBox({ allComments, setAllComments, postId, i, id }) {
   const [showComment, setShowComment] = useState(false);
 
   const commentState = ["pending", "notPending", "failed", "deleting"];
@@ -16,7 +16,9 @@ function CommentBox({ allComments, setAllComments, postId }) {
     setPendingComment,
     setAllComments,
     commentState,
-    postId
+    postId,
+    i,
+    id
   }
   const commentSectionProps = {
     setAllComments,
@@ -24,12 +26,16 @@ function CommentBox({ allComments, setAllComments, postId }) {
     showComment,
     pendingComment,
     cmt,
-    postId
+    postId,
+    i,
+    id
   }
   return (
     <>
       <AddComment {...addCommentProps} />
-      <CommentSection {...commentSectionProps}/>
+      <div className="h-full max-h-48 px-2 overflow-y-scroll custom-scroll-bar mb-3">
+        <CommentSection {...commentSectionProps} />
+      </div>
     </>
   )
 }
