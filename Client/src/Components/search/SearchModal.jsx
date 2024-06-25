@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { LayoutModal, SearchedUser } from '../';
+import { LayoutModal, SearchedUser } from '..';
 import { search, crossIcon } from '../../assets';
 
 
@@ -8,6 +8,7 @@ function SearchModal({ setShowSearchModal }) {
   const [searchText, setSearchText] = useState('');
   const [userList, setUserList] = useState([]);
   const [searchStatus, setSearchStatus] = useState(null);
+  const [searchHistory, setSearchHistory] = useState(JSON.parse(localStorage.getItem('search_history')));
 
   const handleCancel = () => setShowSearchModal(false);
 
@@ -33,7 +34,6 @@ function SearchModal({ setShowSearchModal }) {
         if (result.success) {
           if (result.result.length > 0) {
             setUserList(result.result);
-            console.log(result.result, "result");
             setSearchStatus("success");
           }
           else setSearchStatus("No User found!")
@@ -82,20 +82,41 @@ function SearchModal({ setShowSearchModal }) {
       <div className='mb-6'>
         <div className='px-8 overflow-y-scroll  custom-scroll-bar mx-2 h-80'>
           {
-            searchStatus === "success" ?
-              <>
-                {
-                  userList.map((user) =>
-                    <SearchedUser key={user._id} user={user} setShowSearchModal={setShowSearchModal}/>
-                  )
-                }
-              </>
+            !(searchText.length > 0) ?
+              ((searchHistory && searchHistory.length > 0) ?
+                <>
+                  <div className='flex justify-start items-center -ml-3 -mt-1 mb-2'>
+                    <p className='text-[var(--blue)] font-medium'>Recent</p>
+                  </div>
+                  {
+                    [...searchHistory].reverse().map((user) =>
+                      <SearchedUser key={user._id} user={user} setShowSearchModal={setShowSearchModal} forHistory={true} setSearchHistory={setSearchHistory} />
+                    )
+                  }
+                </>
+                :
+                <>
+                  <div className='flex justify-center items-center h-80'>
+                    <p className='text-[var(--blue)] font-medium'>No Recent Searches</p>
+                  </div>
+                </>
+              )
               :
-              <>
-                <div className='flex justify-center items-center h-80'>
-                  <p className='text-[var(--blue)] font-medium'>{searchStatus}</p>
-                </div>
-              </>
+              (searchStatus === "success" ?
+                <>
+                  {
+                    userList.map((user) =>
+                      <SearchedUser key={user._id} user={user} setShowSearchModal={setShowSearchModal} />
+                    )
+                  }
+                </>
+                :
+                <>
+                  <div className='flex justify-center items-center h-80'>
+                    <p className='text-[var(--blue)] font-medium'>{searchStatus}</p>
+                  </div>
+                </>
+              )
           }
         </div>
       </div>

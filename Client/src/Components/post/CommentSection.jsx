@@ -2,18 +2,22 @@
 import { Comment } from '..';
 
 function CommentSection(props) {
-  const { setAllComments, allComments = [], showComment, pendingComment, cmt, postId, i, id } = props;
+  const { setAllComments, allComments = [], showComment, pendingComment, cmt, postId } = props;
   const username = JSON.parse(localStorage.getItem('username'));
   const img = JSON.parse(localStorage.getItem('img'));
 
   const handleDeleteComment = async (commentId) => {
-    const response = await fetch(`http://localhost:8080/post/delete_comment/${id}/${postId}/${commentId}/${i}`, {
+    const response = await fetch(`http://localhost:8080/post/delete_comment/${postId}/${commentId}`, {
       method: 'DELETE',
     })
+    // const response = await fetch(`http://localhost:8080/post/delete_comment/${userId}/${postId}/${commentId}/${i}`, {
+    //   method: 'DELETE',
+    // })
     const result = await response.json();
 
     if (result.success) {
-      const response2 = await fetch(`http://localhost:8080/post/get_comments/${id}/${postId}/${i}`);
+      const response2 = await fetch(`http://localhost:8080/post/get_comments/${postId}`);
+      // const response2 = await fetch(`http://localhost:8080/post/get_comments/${userId}/${postId}/${i}`);
       const result2 = await response2.json();
 
       setAllComments(result2.comments);

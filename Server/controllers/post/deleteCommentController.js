@@ -1,16 +1,19 @@
-import userData from "../../models/userData.js";
+import postData from "../../models/postData.js";
 
 const deleteComment = async (req, res) => {
-  const { id, post_id, comment_id, i } = req.params;
-
-  const findFor = { _id: id };
-  const updateOperation = { $pull: {} };
-
-  findFor[`posts.${i}._id`] = post_id;
-  updateOperation.$pull[`posts.${i}.comments_all`] = { _id: comment_id };
+  const { post_id, comment_id } = req.params;
 
   try {
-    const result = await userData.updateOne(findFor, updateOperation);
+    const result = await postData.updateOne(
+      { _id: post_id },
+      {
+        $pull: {
+          comments_all: {
+            _id: comment_id,
+          },
+        },
+      }
+    );
     res.status(200).send({ success: true, data: result });
   } catch (err) {
     res

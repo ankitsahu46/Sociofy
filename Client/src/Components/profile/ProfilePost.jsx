@@ -1,16 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef } from "react";
-import { LayoutModal, PostImg, PostOwnerInfo, PostReactBox, AddComment, CommentSection } from "../";
+import { LayoutModal, PostImg, PostOwnerInfo, PostReactBox, AddComment, CommentSection } from "..";
+import { getTimeForPost } from "../../utils";
 
-function ProfilePost({ post, profilePic, i }) {
+function ProfilePost({ post, profilePic }) {
+  const { postImg, username, _id:postId, shares, comments_all = [], likers = [], datePosted } = post;
+  const { timeForOwnerInfo, timeForReactBox } = getTimeForPost(datePosted);
+
   const [showPostModal, setShowPostModal] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const cmt = useRef("");
 
-  const { postImg, username, _id, shares, comments_all = [], likers = [] } = post;
   const [likeCount, setLikeCount] = useState(likers.length);
 
-  const id = JSON.parse(localStorage.getItem('user_id'));
   const commentState = ["pending", "notPending", "failed", "deleting"];
   const [allComments, setAllComments] = useState(comments_all);
   const [pendingComment, setPendingComment] = useState(commentState[1]);
@@ -21,9 +23,7 @@ function ProfilePost({ post, profilePic, i }) {
     setPendingComment,
     setAllComments,
     commentState,
-    postId: _id,
-    i,
-    id
+    postId,
   }
   const commentSectionProps = {
     setAllComments,
@@ -31,18 +31,20 @@ function ProfilePost({ post, profilePic, i }) {
     showComment,
     pendingComment,
     cmt,
-    postId: _id,
-    i,
-    id
+    postId,
+  }
+  const postOwnerInfoProps = {
+    username,
+    userImg: profilePic,
+    timeForOwnerInfo,
   }
   const postReactBoxProps = {
     likeCount,
     allComments,
     shares,
-    postId: _id,
-    i,
+    postId,
     setLikeCount,
-    id
+    timeForReactBox,
   }
 
   return (
@@ -62,7 +64,7 @@ function ProfilePost({ post, profilePic, i }) {
             <div className="flex flex-col items-center md:w-[calc(100%-350px)] lg:w-[calc(100%-80vh)] xl:w-[calc(100%-90vh)] md:max-h-[75vh] lg:max-h-[85vh] xl:max-h-[90vh] py-2 px-4 ">
               <div className="flex flex-col w-full h-full">
                 <div className="h-16">
-                  <PostOwnerInfo userImg={profilePic} username={username} />
+                  <PostOwnerInfo {...postOwnerInfoProps}/>
                 </div>
                 <hr />
                 <div className="flex flex-col-reverse md:flex-col h-[calc(100%-4rem)] mob:max-h-[350px]">

@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 
 function Story({ storyData }) {
-  const img = storyData.img;
-  const username = storyData.username;
+  const { img, username } = storyData;
 
   return (
     <div>

@@ -38,7 +38,7 @@ export default function Form({ name, isSignUp = false, func }) {
 
     if (/\s/.test(value)) setIsAvailable("error");
     else if (value && value.trim().length > 0) {
-      const response = await fetch(`http://localhost:8080/signup/checkusername/${value}`);
+      const response = await fetch(`http://localhost:8080/signup/check_username/${value}`);
       const result = await response.json();
 
       if (result.available) setIsAvailable(true);

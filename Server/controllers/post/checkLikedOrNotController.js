@@ -1,14 +1,13 @@
-import userData from "../../models/userData.js";
+import postData from "../../models/postData.js";
 
 const checkLikedOrNot = async (req, res) => {
-  const { id, post_id, i } = req.params;
-  const findQuery = { _id: id, }
-
-  findQuery[`posts.${i}._id`] = post_id;
-  findQuery[`posts.${i}.likers`] = req.body.username;
+  const { post_id } = req.params;
 
   try {
-    const result = await userData.findOne(findQuery);
+    const result = await postData.findOne({
+      _id: post_id,
+      likers: req.body._id,
+    });
     if (result) {
       res.status(200).send({ liked: true })
     }

@@ -1,11 +1,11 @@
 import express from 'express';
-import { signup, login, checkusername } from '../controllers/index.js';
+import { signup, login, checkUsername } from '../controllers/index.js';
 
 const router = express.Router();
 
 router
   .post('/signup', signup)
   .post('/login', login)
-  .get('/signup/checkusername/:value', checkusername)
+  .get('/signup/check_username/:value', checkUsername)
 
 export default router;

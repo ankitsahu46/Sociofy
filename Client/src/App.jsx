@@ -4,6 +4,8 @@ import { Home, Main, SideSection, MyProfile } from './pages';
 import { Login, PrivateComponent, ShowPost, ShowProfile, SignUp } from './Components';
 
 function App() {
+  localStorage.setItem('img', JSON.stringify('http://res.cloudinary.com/dlpzgtx35/image/upload/v1718237737/xjrhsxtrme65pcjfos8q.jpg'));
+
   return (
     <>
       <div className='w-full m-0 p-0 h-full bg-white'>
@@ -26,7 +28,8 @@ function App() {
                   <Main>
                     <ShowProfile />
                   </Main>} />
-                <Route path="/profile/post/see/:id/:post_id/:i" element={<ShowPost />} />
+                <Route path="/post/see/:post_id" element={<ShowPost />} />
+                {/* <Route path="/profile/post/see/:id/:post_id/:i" element={<ShowPost />} /> */}
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />

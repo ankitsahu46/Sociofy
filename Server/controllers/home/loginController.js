@@ -9,7 +9,7 @@ const login = async (req, res) => {
         {email: req.body.email},
         {username: req.body.email}
       ]
-    }).select({posts: 0});
+    });
     
     const email = result.email;
 

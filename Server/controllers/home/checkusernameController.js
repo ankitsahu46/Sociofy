@@ -1,6 +1,6 @@
 import userData from "../../models/userData.js";
 
-const checkusername = async (req, res) => {
+const checkUsername = async (req, res) => {
   try {
 
     const result = await userData.findOne({ username: req.params.value });
@@ -17,4 +17,4 @@ const checkusername = async (req, res) => {
   }
 }
 
-export { checkusername };
+export { checkUsername };

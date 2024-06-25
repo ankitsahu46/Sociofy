@@ -1,15 +1,12 @@
-import userData from "../../models/userData.js";
+import postData from "../../models/postData.js";
 
 const getPostData = async (req, res) => {
-  const { id, post_id, i } = req.params;
-  const findFor = { _id: id };
-
-  findFor[`posts.${i}._id`] = post_id;
+  const { post_id } = req.params;
 
   try {
-    const result = await userData.findOne(findFor);
+    const result = await postData.findOne({ _id: post_id });
     if (result) {
-      res.status(200).send({ success: true, data: result.posts[i] });
+      res.status(200).send({ success: true, data: result });
     } else {
       res.status(404).send({ success: false, message: "Couldn't find post" });
     }

@@ -1,26 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import postData from "./postData.js";
 
-const userDataSchema = new mongoose.Schema({
+const userDataSchema = new Schema({
   email: String,
   username: String,
   password: String,
   name: String,
   img: String,
+  bio: String,
+  followers: [String],
+  following: [String],
   posts: [{
-    postImg: [String],
-    userImg: String,
-    username: String,
-    likes: Number,
-    comments: Number,
-    shares: Number,
-    likers: [String],
-    comments_all: [
-      {
-        commenter_img: String,
-        commenter_username: String,
-        comment: String,
-      },
-    ],
+    type: mongoose.Schema.Types.ObjectId, ref: postData,
   }],
 });
 

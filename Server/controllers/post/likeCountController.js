@@ -1,14 +1,11 @@
-import userData from "../../models/userData.js";
+import postData from "../../models/postData.js";
 
 const likeCount = async (req, res) => {
-  const { id, post_id, i } = req.params;
-
-  const findFor = { _id: id };
-  findFor[`posts.${i}._id`] = post_id;
+  const { post_id } = req.params;
 
   try {
-    const result = await userData.findOne({_id: id});
-    res.status(200).send({ success: true, likeCount: result.posts[i].likers.length})
+    const result = await postData.findOne({_id: post_id});
+    res.status(200).send({ success: true, likeCount: result.likers?.length})
   }
   catch (err) {
     res.status(500).send({success: false, message: "Couldn't get like count"})

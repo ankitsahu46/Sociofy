@@ -1,12 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import { SvgInfoBox, Nav, PostUploadModal, SearchModal } from "../Components";
+/* eslint-disable react/prop-types */
+import { SvgInfoBox, Nav, PostUploadModal, SearchModal, LogoutModal } from "../Components";
 import {
   home,
   homeActive,
   search,
-  searchActive,
   post,
-  postActive,
   notification,
   notificationActive,
   noImage,
@@ -14,25 +12,28 @@ import {
   logOutIcon,
 } from "../assets";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setNav } from "../features/nav/navSlice.js";
 
 function Header() {
   const img = JSON.parse(localStorage.getItem('img'));
-  let location = window.location.pathname.substring(1);
-  location = location || "home";
+  let location = window.location.pathname.substring(1) || "home";
 
-  const [nav, setNav] = useState(location);
+  const nav = useSelector((state) => state.nav.value);
+  const dispatch = useDispatch();
+
   const [showPostModal, setShowPostModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  if (location !== nav) setNav(location);
-  const Search = nav === "search" ? searchActive : search;
+
+  if (location !== nav) dispatch(setNav(location));
   const Home = nav === "home" ? homeActive : home;
-  const Post = nav === "post" ? postActive : post;
   const Notification = nav === "notification" ? notificationActive : notification;
 
   const togglePostModal = () => setShowPostModal(!showPostModal);
   const toggleSearchModal = () => setShowSearchModal(!showSearchModal);
+  const toggleLogoutModal = () => setShowLogoutModal(!showLogoutModal);
 
   return (
     <>
@@ -54,44 +55,34 @@ function Header() {
         {/* navigation links */}
         <nav className=" flex md:flex-col  justify-around items-center md:justify-center xl:items-start md:[&>*:nth-child(3)]:order-1 w-full">
           {[
-            [Search, "Search", toggleSearchModal],
-            [Post, "Post", togglePostModal],
+            [search, "Search", toggleSearchModal],
+            [post, "Post", togglePostModal],
             [Home, "Home", "/"],
-            [Notification, "Notification", "/login"],
+            [Notification, "Notification", "/"],
             [img ? img : noImage, "Profile", "/profile"],
           ].map((navInfo) => (
-            <Nav key={navInfo[1]} setNav={setNav} nav={nav} navInfo={navInfo} />
+            <Nav key={navInfo[1]} navInfo={navInfo} />
           ))}
         </nav>
 
         {/* Logout */}
         <div
-          onClick={() => {
-            localStorage.clear();
-            navigate('/login');
-          }}
+          onClick={toggleLogoutModal}
           className="hidden md:flex justify-center items-center xl:justify-start hover:bg-gray-200 transition-all rounded-lg h-12 xl:pl-3 w-full cursor-pointer"
         >
           <SvgInfoBox name="Logout" position={"-top-10"}>
             <img src={logOutIcon} alt="logo" className="w-5 h-5" />
           </SvgInfoBox>
-          <span className="hidden xl:block font-medium text-lg text-[#494949] pl-2">
+          <span className="hidden xl:block font-medium text-lg text-[#494949] pl-2 select-none">
             Logout
           </span>
         </div>
 
-        {/* Post modal */}
+        {/* Modal */}
         <div className="fixed">
-          {showPostModal &&
-            <PostUploadModal setShowPostModal={setShowPostModal} />
-          }
-        </div>
-
-        {/* Search modal */}
-        <div className="fixed">
-          {showSearchModal &&
-            <SearchModal setShowSearchModal={setShowSearchModal} />
-          }
+          {showPostModal && <PostUploadModal setShowPostModal={setShowPostModal} />}
+          {showSearchModal && <SearchModal setShowSearchModal={setShowSearchModal} />}
+          {showLogoutModal && <LogoutModal setShowLogoutModal={setShowLogoutModal} />}
         </div>
       </header>
     </>

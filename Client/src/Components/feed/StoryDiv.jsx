@@ -14,11 +14,11 @@ function StoryDiv() {
               },
               {
                 img: profilePic,
-                username: "mister_2.0"
+                username: "its_vivek"
               },
               {
                 img: profilePic,
-                username: "mister_2.0"
+                username: "himanshu"
               },
               {
                 img: profilePic,

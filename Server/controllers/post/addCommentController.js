@@ -1,23 +1,23 @@
-import userData from "../../models/userData.js";
+import postData from "../../models/postData.js";
 
 const addComment = async (req, res) => {
-  const { id, post_id, i } = req.params;
-  const { username, img, comment } = req.body;
-
-  const findFor = { _id: id };
-  const updateOperation = { $push: {} };
-
-  // Set the dynamic field name for the posts and comments array
-  findFor[`posts.${i}._id`] = post_id;
-
-  updateOperation.$push[`posts.${i}.comments_all`] = {
-    commenter_username: username,
-    comment: comment,
-    commenter_img: img,
-  };
+  const { post_id } = req.params;
+  const { user_id, username, img, comment } = req.body;
 
   try {
-    const result = await userData.updateOne(findFor, updateOperation);
+    const result = await postData.updateOne(
+      { _id: post_id },
+      {
+        $push: {
+          comments_all: {
+            commenter_user_id: user_id,
+            commenter_username: username,
+            comment: comment,
+            commenter_img: img,
+          },
+        },
+      }
+    );
     res
       .status(200)
       .send({ success: true, message: "Comment added successfully" });

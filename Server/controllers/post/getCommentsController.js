@@ -1,17 +1,14 @@
-import userData from "../../models/userData.js";
+import postData from "../../models/postData.js";
 
 const getComments = async (req, res) => {
-  const { id, post_id, i } = req.params;
-  const findFor = { _id: id, };
-
-  findFor[`posts.${i}._id`] = post_id;
+  const { post_id } = req.params;
 
   try {
-    const result = await userData.findOne(findFor).select({ posts: 1 });
-    res.status(200).send({ success: true, comments: result.posts[i].comments_all});
+    const result = await postData.findOne({ _id: post_id });
+    res.status(200).send({ success: true, comments: result.comments_all});
   }
   catch (err) {
-    res.status(500).send({ success: false, message: "Couldn't reload comments"});
+    res.status(500).send({ success: false, message: "Couldn't get comments"});
   }
 }
 
