@@ -25,7 +25,6 @@ const getPostsForHome = async (
       );
 
       const result = await response.json();
-      console.log(result, "ruslt getPOstforhome.js");
       if (result.success) {
         if (!result.showRecent) setPostsData(result.postsData);
         else setPostsData(result.recent);

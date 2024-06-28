@@ -27,6 +27,7 @@ import ShowProfile from "./profile/ShowProfile.jsx";
 import SearchedUser from "./search/SearchedUser.jsx";
 import LogoutModal from "./LogoutModal.jsx";
 import EditProfileModal from "./profile/EditProfileModal.jsx";
+import Notification from "./Notification/Notification.jsx";
 
 export {
   Nav,
@@ -58,4 +59,6 @@ export {
   SearchedUser,
   LogoutModal,
   EditProfileModal,
+  Notification,
+  
 };
