@@ -13,6 +13,7 @@ const userDataSchema = new Schema({
   posts: [{
     type: mongoose.Schema.Types.ObjectId, ref: postData,
   }],
+  firebaseToken: String,
 });
 
 export default mongoose.model("users", userDataSchema);

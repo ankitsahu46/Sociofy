@@ -19,6 +19,9 @@ import { checkIsFollowingTrue } from "./profile/checkIsFollowingTrueController.j
 import { followUnfollowUser } from "./profile/followUnfollowUserController.js";
 import { editProfile } from "./profile/editProfileController.js";
 import { getUsers } from "./search/getUsersController.js";
+import { storeFirebaseToken } from "./home/storeFirebaseTokenController.js";
+import { fcm } from "./home/fcmController.js";
+
 
 export {
   signup,
@@ -42,5 +45,6 @@ export {
   postSeenByUser,
   postShared,
   editProfile,
-  
+  storeFirebaseToken,
+  fcm,
 };

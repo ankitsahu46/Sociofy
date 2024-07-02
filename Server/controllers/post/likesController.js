@@ -1,3 +1,4 @@
+
 import postData from "../../models/postData.js";
 
 const incdecLikes = async (req, res) => {
@@ -5,7 +6,7 @@ const incdecLikes = async (req, res) => {
   try {
     let changeLikes;
     if (req.query.liked == "true") {
-      changeLikes = await postData.updateOne(
+      changeLikes = await postData.findOneAndUpdate(
         {
           _id: post_id,
         },
@@ -17,7 +18,7 @@ const incdecLikes = async (req, res) => {
         { new: true }
       );
     } else {
-      changeLikes = await postData.updateOne(
+      changeLikes = await postData.findOneAndUpdate(
         {
           _id: post_id,
         },
@@ -29,7 +30,7 @@ const incdecLikes = async (req, res) => {
         { new: true }
       );
     }
-    res.status(200).send({ success: true, data: changeLikes });
+    res.status(200).send({ success: true, likeCount: changeLikes.likers.length });
   } catch (err) {
     res.status(500).send({ success: false, message: "Error updating likes" });
   }

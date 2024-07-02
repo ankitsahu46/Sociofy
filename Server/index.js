@@ -7,8 +7,9 @@ import home from './routes/home.js';
 import profile from './routes/profile.js';
 import search from './routes/search.js';
 import cors from 'cors';
+import { initializeApp, applicationDefault } from 'firebase-admin/app';
 dotenv.config();
-
+process.env.GOOGLE_APPLICATION_CREDENTIALS;
 //app
 const app = express();
 
@@ -18,7 +19,14 @@ connectDB(process.env.MONGO_URL);
 //middleware
 app.use(express.json());
 app.use(cors());
+app.use(cors({ origin: "*" }));
+app.use(cors({ methods: ["GET", "DELETE", "POST", "PUT", "PATCH"]}));
 // app.use(express.urlencoded({ extended: true }));
+
+initializeApp({
+  credential: applicationDefault(),
+  projectId: process.env.FIREBASE_PROJECT_ID,
+});
 
 
 //routes

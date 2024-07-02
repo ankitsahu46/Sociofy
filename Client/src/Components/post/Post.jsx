@@ -7,7 +7,6 @@ import { getTimeForPost } from "../../utils";
 function Post({post, lastPost}) {
   const { _id:postId, userId, username, postImg, userImg, likers=[], comments_all=[], shares, datePosted } = post;
   const { timeForOwnerInfo, timeForReactBox } = getTimeForPost(datePosted);
-  const [likeCount, setLikeCount] = useState(likers?.length);
   const [allComments, setAllComments] = useState(comments_all);
   const myUserId = JSON.parse(localStorage.getItem('user_id'));
   const token = JSON.parse(localStorage.getItem('token'));
@@ -20,8 +19,7 @@ function Post({post, lastPost}) {
     timeForOwnerInfo,
   }
   const postReactBoxProps = {
-    likeCount,
-    setLikeCount,
+    likers,
     allComments,
     shares,
     postId,

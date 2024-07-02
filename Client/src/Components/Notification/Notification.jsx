@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { registerForToken, onMessageListener } from "../../firebase";
+import { registerForToken, onMessageListener } from "../../firebase.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
-
   const Toast = () => {
     return (
       <div>

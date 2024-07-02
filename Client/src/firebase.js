@@ -16,16 +16,34 @@ initializeApp(firebaseConfig);
 const messaging = getMessaging();
 
 export const registerForToken = () => {
+  const userId = JSON.parse(localStorage.getItem("user_id"));
+
   Notification.requestPermission().then((permission) => {
     if (permission === "granted") {
       const vapidKey =
         "BMbhAQkk60Tqi6VZYqLFPKZ-zbvMvfKFopdzWyQY22IS4aDyv0apwtGjA-VdUxuVBIJpbpwJtJL6lNM1YdymJvA";
 
       return getToken(messaging, { vapidKey })
-        .then((currentToken) => {
+        .then(async (currentToken) => {
           if (currentToken) {
-            console.log("currentToken: " + currentToken);
+            console.log(currentToken, "currentToken");
             //pass the token to the server and store it in the local storage
+            const response = await fetch(
+              `http://localhost:8080/store_firebase_token/${userId}`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ firebaseToken: currentToken }),
+              }
+            );
+            const result = await response.json();
+
+            if (result.success) {
+              localStorage.setItem(
+                "firebaseToken",
+                JSON.stringify(currentToken)
+              );
+            }
           } else {
             console.log(
               "No registration token available. Request permission to generate one."

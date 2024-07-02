@@ -4,14 +4,12 @@ import { LayoutModal, PostImg, PostOwnerInfo, PostReactBox, AddComment, CommentS
 import { getTimeForPost } from "../../utils";
 
 function ProfilePost({ post, profilePic }) {
-  const { postImg, username, _id:postId, shares, comments_all = [], likers = [], datePosted } = post;
+  const { postImg, username, _id:postId, userId, shares, comments_all = [], likers = [], datePosted } = post;
   const { timeForOwnerInfo, timeForReactBox } = getTimeForPost(datePosted);
 
   const [showPostModal, setShowPostModal] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const cmt = useRef("");
-
-  const [likeCount, setLikeCount] = useState(likers.length);
 
   const commentState = ["pending", "notPending", "failed", "deleting"];
   const [allComments, setAllComments] = useState(comments_all);
@@ -39,11 +37,11 @@ function ProfilePost({ post, profilePic }) {
     timeForOwnerInfo,
   }
   const postReactBoxProps = {
-    likeCount,
+    likers,
     allComments,
     shares,
     postId,
-    setLikeCount,
+    userId,
     timeForReactBox,
   }
 

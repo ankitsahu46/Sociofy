@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNav } from "../features/nav/navSlice.js";
 
 function Header() {
-  const img = JSON.parse(localStorage.getItem('img'));
+  const img = JSON.parse(localStorage.getItem('img')) || undefined;
   let location = window.location.pathname.substring(1) || "home";
 
   const nav = useSelector((state) => state.nav.value);
