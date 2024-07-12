@@ -3,15 +3,16 @@ import { useState } from "react";
 import { noImage } from "../../assets";
 import { ReactionInfoBox } from "..";
 import { Link } from "react-router-dom";
+import { sendNotification, sendToNotificationData } from "../../utils";
 
-function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, commentState, postId }) {
+function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, commentState, postId, userId, postImg }) {
   const [addComment, setAddComment] = useState("");
   const [sendBtn, setSendBtn] = useState(false);
   const [addCommentReaction, setAddCommentReaction] = useState(false);
 
-  const user_id = JSON.parse(localStorage.getItem('user_id'));
+  const myUserId = JSON.parse(localStorage.getItem('user_id'));
   const username = JSON.parse(localStorage.getItem('username'));
-  const img = JSON.parse(localStorage.getItem('img'));
+  const myProfileImg = JSON.parse(localStorage.getItem('img'));
   const token = JSON.parse(localStorage.getItem('token'));
 
   const handleAddCommentChange = (e) => {
@@ -31,7 +32,7 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
     try {
       const response = await fetch(`http://localhost:8080/post/add_comment/${postId}`, {
         method: "POST",
-        body: JSON.stringify({ comment: addComment, user_id, username, img }),
+        body: JSON.stringify({ comment: addComment, user_id: myUserId, username, img: myProfileImg }),
         headers: {
           "Content-Type": "application/json",
           authorization: token,
@@ -65,6 +66,23 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
       }
       setPendingComment(commentState[1]);
       setShowComment(false);
+
+      //sending notification to the user and updating the user's notifications
+      if (myUserId !== userId) { 
+        const title = "Sociofy";
+          const body = `${username} commented on your post.`;
+          const body2 = `commented on your post`;
+          const otherData = { 
+            postId,
+            postImg: postImg[0] || '',
+            comment: addComment,
+          };
+          const category = "Comments on Post";
+          console.log(addComment, 'add comment from addComment.js');
+
+          await sendNotification(title, body, userId);
+          await sendToNotificationData(category, myUserId, username, myProfileImg, userId, body2, otherData);
+      }
     }
   }
 
@@ -72,7 +90,7 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
     <div className="flex my-5 items-center w-full gap-2">
       <div className="w-11 h-11 flex justify-center items-center">
         <Link to='/profile'>
-          <img src={img ? img : noImage} alt="" className="rounded-full border" />
+          <img src={myProfileImg || noImage} alt="" className="rounded-full border" />
         </Link>
       </div>
       <div className='w-full flex gap-2'>

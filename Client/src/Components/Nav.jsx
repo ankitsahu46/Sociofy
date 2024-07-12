@@ -27,7 +27,7 @@ function Nav({ navInfo }) {
         <div className="flex justify-start items-center w-full">
           <div className="rounded-full px-2 md:px-3 h-full aspect-square flex justify-center items-center mob:hover:bg-gray-300 md_x:hover:bg-gray-200 transition-all duration-300">
             <SvgInfoBox name={navName} position={"top-9 left-5"}>
-              <img src={img ? img : noImage} alt="" className={`min-w-[1.25rem] min-h-[1.25rem] w-5 h-5 lg:w-6 lg:h-6 ${navName == 'Profile' && 'rounded-full border'}`} />
+              <img src={img ? img : noImage} alt="" className={`min-w-[1.25rem] min-h-[1.25rem] w-5 h-5 lg:w-6 lg:h-6 ${navName == 'Profile' && 'rounded-full object-contain border'}`} />
             </SvgInfoBox>
           </div>
           <div className="hidden xl:block font-medium text-xl text-[#535355]">

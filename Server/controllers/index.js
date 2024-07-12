@@ -21,6 +21,11 @@ import { editProfile } from "./profile/editProfileController.js";
 import { getUsers } from "./search/getUsersController.js";
 import { storeFirebaseToken } from "./home/storeFirebaseTokenController.js";
 import { fcm } from "./home/fcmController.js";
+import { getNotifications } from "./notification/getNotificationsController.js";
+import { sendToNotificationData } from "./notification/sentToNotificationDataController.js";
+import { getUserPostData } from "./post/getUserPostDataController.js";
+import { getUserProfileInfoNoPost } from "./profile/getUserProfileInfoNoPostController.js";
+import { getUserNameAndUserImg } from "./home/getUserNameAndUserImgController.js";
 
 
 export {
@@ -47,4 +52,10 @@ export {
   editProfile,
   storeFirebaseToken,
   fcm,
+  getNotifications,
+  sendToNotificationData,
+  getUserPostData,
+  getUserProfileInfoNoPost,
+  getUserNameAndUserImg,
+  
 };

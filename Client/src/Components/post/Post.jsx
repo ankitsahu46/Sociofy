@@ -1,21 +1,22 @@
 /* eslint-disable react/prop-types */
 import { CommentBox, PostReactBox, PostOwnerInfo, PostImg } from '..';
 import { useEffect, useRef, useState } from 'react';
-import { getTimeForPost } from "../../utils";
-
+import { getTimeForPost, getUserNameAndUserImg } from "../../utils";
 
 function Post({post, lastPost}) {
   const { _id:postId, userId, username, postImg, userImg, likers=[], comments_all=[], shares, datePosted } = post;
   const { timeForOwnerInfo, timeForReactBox } = getTimeForPost(datePosted);
   const [allComments, setAllComments] = useState(comments_all);
+  const [userInfo, setUserInfo] = useState({});
+  const ref = useRef(null);
+
   const myUserId = JSON.parse(localStorage.getItem('user_id'));
   const token = JSON.parse(localStorage.getItem('token'));
 
-  const ref = useRef(null);
-
   const postOwnerInfoProps = {
-    username,
-    userImg,
+    userId,
+    username: userInfo.username || username,
+    userImg: userInfo.img || userImg,
     timeForOwnerInfo,
   }
   const postReactBoxProps = {
@@ -23,6 +24,7 @@ function Post({post, lastPost}) {
     allComments,
     shares,
     postId,
+    postImg,
     userId,
     timeForReactBox
   }
@@ -30,8 +32,16 @@ function Post({post, lastPost}) {
     allComments,
     setAllComments,
     postId,
-    userId
+    userId,
+    postImg
   }
+
+  useEffect(() => {
+    console.log(userId, 'userId from post.jsx');
+    getUserNameAndUserImg(userId, token, setUserInfo);
+  }, [userId, token])
+  
+
   useEffect(() => {
     let count = 0;
     let reference = ref.current;

@@ -15,6 +15,7 @@ import {
   getPostDataForHome,
   postSeenByUser,
   postShared,
+  getUserPostData
 } from "../controllers/index.js";
 
 
@@ -36,7 +37,8 @@ router
   .get("/get_comments/:post_id", getComments)
   .delete("/delete_comment/:post_id/:comment_id", deleteComment)
   .get("/see/:post_id", getPostData)
-  .get("/get_post_data/:id/:post_id/:i", getPostData)
+  .get("/get_post_data/:post_id", getPostData)
+  .get('/get_user_post_data/:user_id', getUserPostData)
   .post('/post_img', upload.single('img_file'), verifyToken, postImg)
   .post('/post_seen_by_user/:post_id/:user_id', verifyToken, postSeenByUser)
   .get('/shared/:post_id', verifyToken, postShared)

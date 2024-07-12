@@ -19,5 +19,6 @@ import wave from './wave.svg';
 import preview from './preview.png';
 import crossIcon from './crossIcon.svg';
 import logOutIcon from './logOutIcon.svg';
+import arrow from './arrow.svg';
 
-export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noImage, deleteIcon, wave, preview, crossIcon, logOutIcon };
+export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noImage, deleteIcon, wave, preview, crossIcon, logOutIcon, arrow };

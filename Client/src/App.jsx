@@ -1,10 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Home, Main, SideSection, MyProfile } from './pages';
-import { Login, Notification, PrivateComponent, ShowPost, ShowProfile, SignUp } from './Components';
+import { Login, Notification, NotificationPost, PrivateComponent, ShowPost, ShowProfile, SignUp } from './Components';
 
 function App() {
-  localStorage.setItem('img', JSON.stringify('http://res.cloudinary.com/dlpzgtx35/image/upload/v1718237737/xjrhsxtrme65pcjfos8q.jpg'));
 
   return (
     <>
@@ -29,6 +28,11 @@ function App() {
                     <ShowProfile />
                   </Main>} />
                 <Route path="/post/see/:post_id" element={<ShowPost />} />
+                <Route path="/notification/notification_post" element={
+                  <Main>
+                     <NotificationPost />
+                  </Main>
+                } />
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />

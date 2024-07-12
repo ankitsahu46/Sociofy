@@ -1,33 +1,40 @@
+import LayoutModal from "./feed/LayoutModal.jsx";
+import ReactionInfoBox from "./feed/ReactionInfoBox.jsx";
+import Story from "./feed/Story.jsx";
+import StoryDiv from "./feed/StoryDiv.jsx";
+import SvgInfoBox from "./feed/SvgInfoBox.jsx";
+import Notification from "./Notification/Notification.jsx";
+import NotificationModal from "./Notification/NotificationModal.jsx";
+import NotificationPost from "./Notification/NotificationPost.jsx";
 import AddComment from "./post/AddComment.jsx";
 import Comment from "./post/Comment.jsx";
 import CommentBox from "./post/CommentBox.jsx";
 import CommentSection from "./post/CommentSection.jsx";
-import SvgInfoBox from "./feed/SvgInfoBox.jsx";
-import Nav from "./Nav.jsx";
 import Post from "./post/Post.jsx";
-import PostReact from "./post/PostReact.jsx";
-import Story from "./feed/Story.jsx";
-import StoryDiv from "./feed/StoryDiv.jsx";
-import PostReactBox from "./post/PostReactBox.jsx";
-import PostOwnerInfo from "./post/PostOwnerInfo.jsx";
 import PostImg from "./post/PostImg.jsx";
-import ShowPost from "./post/ShowPost.jsx";
+import PostOwnerInfo from "./post/PostOwnerInfo.jsx";
+import PostReact from "./post/PostReact.jsx";
+import PostReactBox from "./post/PostReactBox.jsx";
 import PostUploadModal from "./post/PostUploadModal.jsx";
-import Loading from "./Loading.jsx";
-import PrivateComponent from "./PrivateComponent.jsx";
+import ShowPost from "./post/ShowPost.jsx";
+import EditProfileModal from "./profile/EditProfileModal.jsx";
+import Profile from "./profile/Profile.jsx";
+import ProfilePost from "./profile/ProfilePost.jsx";
+import ProfilePostSection from "./profile/ProfilePostSection.jsx";
+import ProfileUserInfoSection from "./profile/ProfileUserInfoSection.jsx";
+import ShowProfile from "./profile/ShowProfile.jsx";
+import Form from "./register/Form.jsx";
 import Login from "./register/Login.jsx";
 import SignUp from "./register/SignUp.jsx";
-import Form from "./register/Form.jsx";
-import LayoutModal from "./feed/LayoutModal.jsx";
-import ProfilePost from "./profile/ProfilePost.jsx";
-import ReactionInfoBox from "./feed/ReactionInfoBox.jsx";
-import SearchModal from "./search/SearchModal.jsx";
-import Profile from "./profile/Profile.jsx";
-import ShowProfile from "./profile/ShowProfile.jsx";
 import SearchedUser from "./search/SearchedUser.jsx";
+import SearchModal from "./search/SearchModal.jsx";
+import Loading from "./Loading.jsx";
 import LogoutModal from "./LogoutModal.jsx";
-import EditProfileModal from "./profile/EditProfileModal.jsx";
-import Notification from "./Notification/Notification.jsx";
+import Nav from "./Nav.jsx";
+import PrivateComponent from "./PrivateComponent.jsx";
+import ProfilePostAndCommentSection from "./profile/ProfilePostAndCommentSection.jsx";
+import NotificationDiv from "./Notification/NotificationDiv.jsx";
+
 
 export {
   Nav,
@@ -60,5 +67,11 @@ export {
   LogoutModal,
   EditProfileModal,
   Notification,
+  NotificationModal,
+  ProfilePostSection,
+  ProfileUserInfoSection,
+  NotificationPost,
+  ProfilePostAndCommentSection,
+  NotificationDiv,
   
 };

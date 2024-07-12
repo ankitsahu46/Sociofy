@@ -53,6 +53,10 @@ function SearchModal({ setShowSearchModal }) {
 
   return (
     <LayoutModal hideModal={handleCancel} maxWidth="sm:max-w-lg">
+
+     <div>
+
+    
       {/* Heading for Search Modal */}
       <div className="w-full flex justify-center items-center bg-gradient-to-r from-[var(--blue)] to-[var(--blue-semidark2)] py-2 border-b-2">
         <h1 className="text-lg font-medium text-white">Search</h1>
@@ -119,6 +123,7 @@ function SearchModal({ setShowSearchModal }) {
               )
           }
         </div>
+      </div>
       </div>
     </LayoutModal>
   )

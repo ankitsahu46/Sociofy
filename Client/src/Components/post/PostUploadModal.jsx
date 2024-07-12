@@ -32,7 +32,6 @@ function PostUploadModal({ setShowPostModal }) {
 
       const response = await axios.post('http://localhost:8080/post/post_img', data);
       const result = await response.data;
-      console.log(result, "result post upload");
 
       if (result.success) {
         setPostingState("Posted.");

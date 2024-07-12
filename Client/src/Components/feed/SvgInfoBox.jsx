@@ -15,12 +15,14 @@ function SvgInfoBox({ name, position, children }) {
   }
 
   return (
-    <div className="relative z-0">
+    <div>
       <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
         {children}
       </div>
-      <div className={`bg-gray-700 text-white inline-block px-2 py-1 rounded-md border border-white ring-1 ring-black text-xs ${position} absolute ${appear ? "opacity-100" : "opacity-0"} transition-all`} >
-        {name}
+      <div className="relative">
+        <div className={`bg-gray-700 text-white inline-block px-2 py-1 rounded-md border border-white ring-1 ring-black text-xs ${position} absolute  ${appear ? "visible" : "hidden"} transition-all`} >
+          {name}
+        </div>
       </div>
     </div>
   )

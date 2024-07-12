@@ -3,19 +3,19 @@
 import { useState, useEffect } from "react";
 import { notification, notificationActive, share, comment } from "../../assets";
 import { PostReact, ReactionInfoBox } from "..";
-import { likedDislikedThePost, sendNotification } from "../../utils";
+import { likedDislikedThePost, sendNotification, sendToNotificationData, checkLikedOrNot } from "../../utils";
 
 function PostReactBox(props) {
-  const { postId, userId, allComments = [], shares, likers = [], timeForReactBox } = props;
+  const { postId, postImg, userId, allComments = [], shares=0, likers = [], timeForReactBox } = props;
   const [liked, setLiked] = useState(false);
   const [likedReaction, setLikedReaction] = useState(false);
-  const [noOfShares, setNoOfShares] = useState(shares);
-  const [likeCount, setLikeCount] = useState(likers?.length);
+  const [noOfShares, setNoOfShares] = useState(0);
+  const [likeCount, setLikeCount] = useState(0);
 
   const myUserId = JSON.parse(localStorage.getItem('user_id'));
   const token = JSON.parse(localStorage.getItem('token'));
   const myUserName = JSON.parse(localStorage.getItem('username'));
-
+  const myProfileImg = JSON.parse(localStorage.getItem('img'));
 
   const handleLikeBtn = async () => {
     const initiateLike = !liked;
@@ -29,8 +29,12 @@ function PostReactBox(props) {
         if (initiateLike && (myUserId !== userId)) {
           const title = "Sociofy";
           const body = `${myUserName} liked your post.`;
+          const body2 = `liked your post.`;
+          const otherData = { postId, postImg: postImg[0] };
+          const category = "Likes Post";
 
           await sendNotification(title, body, userId);
+          await sendToNotificationData(category, myUserId, myUserName, myProfileImg, userId, body2, otherData);
         }
       }
       else {
@@ -48,28 +52,18 @@ function PostReactBox(props) {
   }
 
   useEffect(() => {
-    const checkLikedOrNot = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/post/check_liked_or_not/${postId}`, {
-          method: "PUT",
-          body: JSON.stringify({ _id: myUserId }),
-          headers: {
-            "Content-Type": "application/json",
-          }
-        })
-        if (!response.ok) {
-          throw new Error(`Network response was not ok. Status: ${response.status}`);
-        } else {
-          const result = await response.json();
-          setLiked(result.liked)
-        }
-      }
-      catch (error) {
-        console.error("Error checking liked status:", error);
-      }
-    };
-    checkLikedOrNot();
+    if (postId && myUserId) {
+      checkLikedOrNot(postId, myUserId, setLiked);
+    }
   }, [postId, myUserId])
+
+  useEffect(() => {
+    setLikeCount(likers?.length);
+  }, [likers])
+
+  useEffect(() => {
+    setNoOfShares(shares);
+  }, [shares])
 
   const handleShare = async () => {
     const info = {

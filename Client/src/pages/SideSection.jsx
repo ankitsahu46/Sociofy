@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
-import { noImage } from '../assets';
+import { noImage, arrow } from '../assets';
 import { useDispatch } from 'react-redux';
 import { setNav } from '../features/nav/navSlice';
 
@@ -20,11 +20,11 @@ function SideSection() {
     <aside className='hidden mdl:block mdl:col-span-3 h-[calc(100vh-2.5rem)] mdl:h-[100vh] px-5 py-5 border-l-[1px]'>
       <Link to='/profile' onClick={() => dispatch(setNav('profile'))}>
         <div className='flex flex-col justify-center items-center pt-5'>
-          <div className='w-36 h-36 rounded-full border-4 border-blue-500 flex justify-center items-center cursor-pointer' >
-              <img src={img ? img : noImage} alt="" className='w-32 h-32 rounded-full object-cover' />
+          <div className='w-36 h-36 rounded-full border-4 border-[var(--blue-dark)] flex justify-center items-center cursor-pointer' >
+            <img src={img ? img : noImage} alt="" className='w-32 h-32 rounded-full object-contain' />
           </div>
           <span className='mt-2 font-medium text-sm cursor-pointer'>{username}</span>
-          <span className='font-medium text-lg text-blue-600 cursor-pointer'>{name}</span>
+          <span className='font-medium text-lg text-[var(--blue)] cursor-pointer'>{name}</span>
         </div>
       </Link>
       <div className='flex [&>*]:flex-1 mt-8 font-medium'>
@@ -37,15 +37,18 @@ function SideSection() {
             .map(([name, value]) => (
               <div key={name} className='flex flex-col justify-center items-center'>
                 <span>{name}</span>
-                <span className='font-bold text-lg text-blue-600'>{value}</span>
+                <span className='font-bold text-lg text-[var(--blue)]'>{value}</span>
               </div>
             ))
         }
       </div>
-      <div className='flex justify-center items-center mt-10'>
-        <Link to='/profile' onClick={() => dispatch(setNav('profile'))} className='bg-blue-700 rounded-lg text-white px-4 py-1 flex items-center'>
-          <span>View Profile</span>
-          <span><img src="src/assets/arrow.svg" className='w-4 h-4 invert rotate-45 scale-110 ml-1' /></span>
+      <div className='flex justify-center items-center text-base mt-10'>
+        <Link to='/profile' className='bg-[var(--blue-dark)] rounded-3xl text-white pl-2 pr-3 py-1 flex items-center'>
+          <div className=" border-[1px] border-[var(--blue)] flex justify-center items-center rounded-full mr-2 my-1">
+            <img src={img ? img : noImage} alt="" className="rounded-full w-6 h-6 object-contain bg-white" />
+          </div>
+          <span className='font-semibold'>View Profile</span>
+          <span><img src={arrow} className='w-4 h-4 invert rotate-45 scale-110 ml-1' /></span>
         </Link>
       </div>
     </aside>)

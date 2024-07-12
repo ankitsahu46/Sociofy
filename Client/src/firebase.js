@@ -26,8 +26,7 @@ export const registerForToken = () => {
       return getToken(messaging, { vapidKey })
         .then(async (currentToken) => {
           if (currentToken) {
-            console.log(currentToken, "currentToken");
-            //pass the token to the server and store it in the local storage
+            //passes the token to the server
             const response = await fetch(
               `http://localhost:8080/store_firebase_token/${userId}`,
               {
@@ -37,7 +36,8 @@ export const registerForToken = () => {
               }
             );
             const result = await response.json();
-
+            
+            //stores the token in the local storage
             if (result.success) {
               localStorage.setItem(
                 "firebaseToken",
@@ -52,6 +52,7 @@ export const registerForToken = () => {
         })
         .catch((error) => {
           console.log("An error occurred while retrieving token. ", error);
+          
         });
     } else if (permission === "denied") {
       console.log("Please allow notification to generate token.");

@@ -18,7 +18,7 @@ const fcm = async (req, res) => {
 
     getMessaging()
       .send(message)
-      .then((response) => {
+      .then(() => {
         res.status(200).json({
           success: true,
           message: "Successfully sent message",

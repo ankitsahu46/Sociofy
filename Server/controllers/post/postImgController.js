@@ -1,22 +1,6 @@
 import postData from "../../models/postData.js";
 import userData from "../../models/userData.js";
-import { v2 as cloudinary } from "cloudinary";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
-});
-
-const uploadFile = async (file) => {
-  const imgFile = await cloudinary.uploader.upload(file, {
-    resource_type: "auto",
-  });
-  return imgFile;
-};
+import { uploadFile } from "../../utils/index.js";
 
 const postImg = async (req, res) => {
   try {
@@ -27,7 +11,6 @@ const postImg = async (req, res) => {
     let dataURI = "data:" + mimetype + ";base64," + b64;
     const imgFile = await uploadFile(dataURI);
 
-    // const date = new Date.now()
     const data1 = await postData({
       postImg: imgFile.url,
       userImg: "",

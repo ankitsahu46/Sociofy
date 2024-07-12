@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { SvgInfoBox, Nav, PostUploadModal, SearchModal, LogoutModal } from "../Components";
+import { SvgInfoBox, Nav, PostUploadModal, SearchModal, LogoutModal, NotificationModal } from "../Components";
 import {
   home,
   homeActive,
@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNav } from "../features/nav/navSlice.js";
 
 function Header() {
-  const img = JSON.parse(localStorage.getItem('img')) || undefined;
+  const img = JSON.parse(localStorage.getItem('img')) || "";
   let location = window.location.pathname.substring(1) || "home";
 
   const nav = useSelector((state) => state.nav.value);
@@ -24,6 +24,7 @@ function Header() {
 
   const [showPostModal, setShowPostModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
 
@@ -33,6 +34,7 @@ function Header() {
 
   const togglePostModal = () => setShowPostModal(!showPostModal);
   const toggleSearchModal = () => setShowSearchModal(!showSearchModal);
+  const toggleNotificationModal = () => setShowNotificationModal(!showNotificationModal);
   const toggleLogoutModal = () => setShowLogoutModal(!showLogoutModal);
 
   return (
@@ -58,7 +60,7 @@ function Header() {
             [search, "Search", toggleSearchModal],
             [post, "Post", togglePostModal],
             [Home, "Home", "/"],
-            [Notification, "Notification", "/"],
+            [Notification, "Notification", toggleNotificationModal],
             [img ? img : noImage, "Profile", "/profile"],
           ].map((navInfo) => (
             <Nav key={navInfo[1]} navInfo={navInfo} />
@@ -82,6 +84,7 @@ function Header() {
         <div className="fixed">
           {showPostModal && <PostUploadModal setShowPostModal={setShowPostModal} />}
           {showSearchModal && <SearchModal setShowSearchModal={setShowSearchModal} />}
+          {showNotificationModal && <NotificationModal setShowNotificationModal={setShowNotificationModal} />}
           {showLogoutModal && <LogoutModal setShowLogoutModal={setShowLogoutModal} />}
         </div>
       </header>

@@ -12,7 +12,7 @@ const getTimeForPost = (datePosted) => {
   else if (timeDiff < 60*24) {
     time = Math.round(timeDiff/60) + "h";
   }
-  else if (timeDiff < 60*24*2) {
+  else if (timeDiff < 60*24*7) {
     time = Math.round(timeDiff/(60*24)) + "d";
   }
   else {
