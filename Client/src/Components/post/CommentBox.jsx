@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef } from "react";
 import { AddComment, CommentSection } from "..";
-import { getUserNameAndUserImg } from "../../utils";
 
-getUserNameAndUserImg
-function CommentBox({ allComments, setAllComments, postId, userId, postImg }) {
+function CommentBox({ allComments, setAllComments, postId, userId, postImg, caption, userImg, username }) {
   const [showComment, setShowComment] = useState(false);
 
   const commentState = ["pending", "notPending", "failed", "deleting"];
@@ -22,13 +20,16 @@ function CommentBox({ allComments, setAllComments, postId, userId, postImg }) {
     postImg,
   }
   const commentSectionProps = {
+    cmt,
     setAllComments,
     allComments,
     showComment,
     pendingComment,
-    cmt,
     postId,
     userId,
+    caption,
+    userImg,
+    username
   }
 
   return (

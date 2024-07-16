@@ -28,12 +28,13 @@ import Login from "./register/Login.jsx";
 import SignUp from "./register/SignUp.jsx";
 import SearchedUser from "./search/SearchedUser.jsx";
 import SearchModal from "./search/SearchModal.jsx";
-import Loading from "./Loading.jsx";
-import LogoutModal from "./LogoutModal.jsx";
-import Nav from "./Nav.jsx";
-import PrivateComponent from "./PrivateComponent.jsx";
+import Loading from "./otherSmallComponents/Loading.jsx";
+import LogoutModal from "./otherSmallComponents/LogoutModal.jsx";
+import Nav from "./otherSmallComponents/Nav.jsx";
+import PrivateComponent from "./otherSmallComponents/PrivateComponent.jsx";
 import ProfilePostAndCommentSection from "./profile/ProfilePostAndCommentSection.jsx";
 import NotificationDiv from "./Notification/NotificationDiv.jsx";
+import useOutSideClick from "./customHooks/useOutsideClick.jsx";
 
 
 export {
@@ -73,5 +74,6 @@ export {
   NotificationPost,
   ProfilePostAndCommentSection,
   NotificationDiv,
+  useOutSideClick,
   
 };

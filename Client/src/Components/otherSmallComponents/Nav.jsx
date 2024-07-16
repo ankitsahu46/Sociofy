@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import { noImage } from "../assets";
-import { SvgInfoBox } from "./";
+import { noImage } from "../../assets/index.js";
+import { SvgInfoBox } from "../index.js";
 import { useSelector, useDispatch } from "react-redux";
-import { setNav } from "../features/nav/navSlice.js";
+import { setNav } from "../../features/nav/navSlice.js";
 
 function Nav({ navInfo }) {
   const [img, navName, action] = navInfo

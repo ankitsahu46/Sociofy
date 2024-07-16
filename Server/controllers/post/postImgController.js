@@ -4,7 +4,7 @@ import { uploadFile } from "../../utils/index.js";
 
 const postImg = async (req, res) => {
   try {
-    const { username, email, user_id } = req.body;
+    const { username, user_id, caption } = req.body;
     const { buffer, mimetype } = req.file;
 
     const b64 = Buffer.from(buffer).toString("base64");
@@ -17,6 +17,7 @@ const postImg = async (req, res) => {
       username,
       userId: user_id,
       shares: 0,
+      caption,
       datePosted: Date.now(),
       likers: [],
       comments_all: [],

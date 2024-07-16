@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getTimeForPost, getUserNameAndUserImg } from "../../utils";
 
 function Post({post, lastPost}) {
-  const { _id:postId, userId, username, postImg, userImg, likers=[], comments_all=[], shares, datePosted } = post;
+  const { _id:postId, userId, username, postImg, userImg, likers=[], comments_all=[], shares, caption, datePosted } = post;
   const { timeForOwnerInfo, timeForReactBox } = getTimeForPost(datePosted);
   const [allComments, setAllComments] = useState(comments_all);
   const [userInfo, setUserInfo] = useState({});
@@ -18,6 +18,7 @@ function Post({post, lastPost}) {
     username: userInfo.username || username,
     userImg: userInfo.img || userImg,
     timeForOwnerInfo,
+    postId,
   }
   const postReactBoxProps = {
     likers,
@@ -33,7 +34,10 @@ function Post({post, lastPost}) {
     setAllComments,
     postId,
     userId,
-    postImg
+    postImg,
+    caption,
+    userImg: userInfo.img || userImg,
+    username: userInfo.username || username,
   }
 
   useEffect(() => {

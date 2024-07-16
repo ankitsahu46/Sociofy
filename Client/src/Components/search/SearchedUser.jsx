@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { noImage, crossIcon } from "../../assets";
+import SvgInfoBox from "../feed/SvgInfoBox";
 
 function SearchedUser({ user, setShowSearchModal, forHistory = false, setSearchHistory }) {
   const { _id: searchedUserId, img, username, name } = user;
   const myUserId = JSON.parse(localStorage.getItem('user_id'));
 
   const navigate = useNavigate();
+  let seeProfile = `/profile/see?user_id=${searchedUserId}`;
+  if (searchedUserId === myUserId) seeProfile = '/profile';
 
   const createHistory = () => {
     const searchHistory = JSON.parse(localStorage.getItem('search_history'));
@@ -25,17 +28,17 @@ function SearchedUser({ user, setShowSearchModal, forHistory = false, setSearchH
     localStorage.setItem('search_history', JSON.stringify(updatedSearchHistory));
   }
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     setShowSearchModal(false);
-    if (searchedUserId === myUserId) {
-      navigate('/profile');
-      return
+    if (seeProfile !== '/profile') {
+      createHistory();
     }
-    createHistory();
-    navigate(`/profile/see?user_id=${searchedUserId}`);
+    navigate(seeProfile);
   }
 
   const deleteUserFromHistory = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     const searchHistory = JSON.parse(localStorage.getItem('search_history'));
     const index = searchHistory.findIndex(obj => obj._id === searchedUserId);
@@ -46,23 +49,27 @@ function SearchedUser({ user, setShowSearchModal, forHistory = false, setSearchH
   }
 
   return (
-    <div onClick={handleClick} className='flex items-center w-full'>
-      <div>
-        <img src={img ? img : noImage} alt="" className='w-12 aspect-square rounded-full' />
-      </div>
-      <div className='flex justify-between w-full'>
-        <div className='flex flex-col px-4 py-2'>
-          <span className='text-black font-medium text-sm'>{username}</span>
-          <span className='text-gray-500 text-[0.9rem]'>{name}</span>
+    <Link to={seeProfile} onClick={(e) => handleClick(e)}>
+      <div className='flex items-center w-full cursor-pointer'>
+        <div>
+          <img src={img ? img : noImage} alt="" className='w-12 aspect-square rounded-full' />
         </div>
-        {
-          forHistory &&
-          <div onClick={deleteUserFromHistory} className='flex justify-center items-center px-2'>
-            <img src={crossIcon} alt="" className='w-6 aspect-square rounded-full' />
+        <div className='flex justify-between w-full'>
+          <div className='flex flex-col px-4 py-2'>
+            <span className='text-black font-medium text-sm'>{username}</span>
+            <span className='text-gray-500 text-[0.9rem]'>{name}</span>
           </div>
-        }
+          {
+            forHistory &&
+            <div onClick={deleteUserFromHistory} className='flex justify-center items-center px-2 cursor-pointer'>
+              <SvgInfoBox name='Delete' position={'right-6'}>
+                <img src={crossIcon} alt="" className='w-6 aspect-square rounded-full' />
+              </SvgInfoBox>
+            </div>
+          }
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

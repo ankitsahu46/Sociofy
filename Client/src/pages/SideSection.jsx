@@ -45,7 +45,7 @@ function SideSection() {
       <div className='flex justify-center items-center text-base mt-10'>
         <Link to='/profile' className='bg-[var(--blue-dark)] rounded-3xl text-white pl-2 pr-3 py-1 flex items-center'>
           <div className=" border-[1px] border-[var(--blue)] flex justify-center items-center rounded-full mr-2 my-1">
-            <img src={img ? img : noImage} alt="" className="rounded-full w-6 h-6 object-contain bg-white" />
+            <img src={img ? img : noImage} alt="" className="rounded-full w-6 h-6 object-contain bg-white border  border-gray-100" />
           </div>
           <span className='font-semibold'>View Profile</span>
           <span><img src={arrow} className='w-4 h-4 invert rotate-45 scale-110 ml-1' /></span>

@@ -26,7 +26,8 @@ import { sendToNotificationData } from "./notification/sentToNotificationDataCon
 import { getUserPostData } from "./post/getUserPostDataController.js";
 import { getUserProfileInfoNoPost } from "./profile/getUserProfileInfoNoPostController.js";
 import { getUserNameAndUserImg } from "./home/getUserNameAndUserImgController.js";
-
+import { deletePost } from "./profile/deletePostController.js";
+import { editProfileNoImg } from "./profile/editProfileNoImgController.js";
 
 export {
   signup,
@@ -57,5 +58,7 @@ export {
   getUserPostData,
   getUserProfileInfoNoPost,
   getUserNameAndUserImg,
-  
+  deletePost,
+  editProfileNoImg,
+
 };

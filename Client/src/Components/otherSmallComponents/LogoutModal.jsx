@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import { LayoutModal } from ".";
+import { LayoutModal } from "..";
 
 function LogoutModal({ setShowLogoutModal }) {
   const navigate = useNavigate();

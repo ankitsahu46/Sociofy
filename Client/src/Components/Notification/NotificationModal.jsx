@@ -43,11 +43,15 @@ function NotificationModal({ setShowNotificationModal }) {
           <div className="w-full my-5">
             {
               notifications?.length === 0 ?
-                <div className="flex justify-center items-center font-medium text-xl text-[var(--blue)] min-h-[50vh]">{notificationAvailability}</div>
+                <div className="flex justify-center items-center font-medium text-xl text-[var(--blue)] min-w-full min-h-[70vh] border border-red-600">
+                  <div className='flex justify-center items-center min-w-[80vw] md:min-w-full'>
+                    {notificationAvailability}
+                  </div>
+                </div>
                 :
-                <div className="flex flex-col items-center font-medium text-md min-h-[50vh] max-h-[75vh] overflow-auto gap-y-3">
+                <div className="flex flex-col items-center font-medium text-md min-h-[50vh] max-h-[75vh] overflow-y-auto gap-y-3 custom-scroll-bar mr-1">
                   {
-                    notifications.map((notification) => (
+                    [...notifications].reverse().map((notification) => (
                       <NotificationDiv
                         key={notification._id}
                         notification={notification}

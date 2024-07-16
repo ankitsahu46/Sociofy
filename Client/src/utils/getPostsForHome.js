@@ -4,7 +4,8 @@ const getPostsForHome = async (
   userId,
   setPostsData,
   setPostAvailability,
-  setLoading
+  setLoading,
+  setIsShowingRecent
 ) => {
   try {
     if (!(following?.length > 0))
@@ -28,6 +29,7 @@ const getPostsForHome = async (
       if (result.success) {
         if (!result.showRecent) setPostsData(result.postsData);
         else setPostsData(result.recent);
+        setIsShowingRecent(result.showRecent);
       } 
       else setPostAvailability("Couldn't find Posts! Try again.");
     }

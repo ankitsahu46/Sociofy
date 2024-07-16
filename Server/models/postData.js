@@ -16,6 +16,7 @@ const postDataSchema = new Schema({
     },
   ],
   shares: Number,
+  caption: String,
   datePosted: Date,
   usersSawThePost: [String],
 })

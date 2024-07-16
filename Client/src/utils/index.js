@@ -13,6 +13,7 @@ import { getUserPostData } from "./getUserPostData";
 import { getPostData } from "./getPostData";
 import { getUserProfileInfoNoPost } from "./getUserProfileInfoNoPost";
 import { getUserNameAndUserImg } from "./getUserNameAndUserImg";
+import { handlePostDelete } from "./handlePostDelete";
 
 export { 
   followUnfollowUser,
@@ -30,6 +31,6 @@ export {
   getPostData,
   getUserProfileInfoNoPost,
   getUserNameAndUserImg,
-
+  handlePostDelete,
   
 };

@@ -25,7 +25,6 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
   const token = JSON.parse(localStorage.getItem("token"));
   const profileImg = JSON.parse(localStorage.getItem('img'));
 
-
   const handleFollowUnfollowBtn = () => {
     followUnfollowUser(token, userId, whoFollowed, isFollowing, setIsFollowing);
   };
@@ -42,17 +41,17 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
 
   
   return (
-    <div className="justify-center items-center grid grid-cols-5 mt-5 md:mt-2 lg:mt-0">
+    <div className="justify-center items-center grid grid-cols-5 mt-5 md:mt-2 lg:mt-0 sm_max:mx-4">
       <div className="col-span-2 flex justify-center items-center aspect-square">
         <img
-          src={img || profileImg || noImage}
+          src={img || (userId === whoFollowed && profileImg) || noImage}
           alt="profile"
           className="rounded-full w-[70%] h-[70%] md:w-[45%] md:h-[45%] object-contain border"
         />
       </div>
       <div className="col-span-3 flex flex-col justify-center items-start pl-4">
         <div className="flex gap-7">
-          <span className="md:text-lg font-semibold text-[var(--blue)]">
+          <span className="text-lg font-semibold text-[var(--blue)]">
             {username}
           </span>
           {myProfile ? (
@@ -79,10 +78,10 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
           ].map(([name, value]) => (
             <div
               key={name}
-              className="flex flex-col justify-center items-center mr-7"
+              className="flex flex-col justify-center items-center mr-7 text-sm sm:text-base"
             >
               <span>{name}</span>
-              <span className="font-bold text-lg text-blue-600">
+              <span className="font-bold text-base sm:text-lg text-blue-600">
                 {value}
               </span>
             </div>
@@ -91,8 +90,8 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
         <span className="font-medium text-base md:text-lg mt-5 -mb-4">
           {name}
         </span>
-        <div className="max-w-[100px]">
-          <div className="text-sm md:text-base mt-4 w-72 max-h-60 overflow-y-hidden">
+        <div className="">
+          <div className="text-sm md:text-base mt-4 md:w-80 max-h-60 overflow-y-hidden pr-2">
             {bio}
           </div>
         </div>

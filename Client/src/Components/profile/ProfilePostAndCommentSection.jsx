@@ -1,20 +1,21 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
 import { PostImg, PostOwnerInfo, PostReactBox, AddComment, CommentSection } from "..";
-import { getTimeForPost } from "../../utils";
+import { getTimeForPost, getUserNameAndUserImg } from "../../utils";
+import { noImage } from "../../assets";
 
 function ProfilePostAndCommentSection({ post }) {
-  const { postImg, username, _id: postId, userId, shares, likers = [], datePosted } = post;
+  const { postImg, username, _id: postId, userId, userImg, shares, likers = [], caption, datePosted } = post;
   let { comments_all } = post;
-  
   const commentState = ["pending", "notPending", "failed", "deleting"];
   const [pendingComment, setPendingComment] = useState(commentState[1]);
   const [allComments, setAllComments] = useState([]);
   const [showComment, setShowComment] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   const cmt = useRef("");
-  
+
+  const token = JSON.parse(localStorage.getItem('token'));
   const { timeForOwnerInfo, timeForReactBox } = getTimeForPost(datePosted);
-  const profilePic = JSON.parse(localStorage.getItem('img'));
   const addCommentProps = {
     cmt,
     setShowComment,
@@ -32,13 +33,17 @@ function ProfilePostAndCommentSection({ post }) {
     pendingComment,
     cmt,
     postId,
-    userId
+    userId,
+    userImg: userInfo?.img || userImg || noImage, 
+    username, 
+    caption,
   }
   const postOwnerInfoProps = {
     userId,
     username,
-    userImg: profilePic,
+    userImg: userInfo?.img || userImg || noImage,
     timeForOwnerInfo,
+    postId
   }
   const postReactBoxProps = {
     likers,
@@ -54,10 +59,16 @@ function ProfilePostAndCommentSection({ post }) {
     setAllComments(comments_all);
   }, [comments_all]);
 
+  useEffect(() => {
+    if (userId) {
+      getUserNameAndUserImg(userId, token, setUserInfo);
+    }
+  }, [userId, token])
+
   return (
     <div className="flex flex-col md:flex-row">
       <div className="bg-white rounded-2xl shadow-md md:w-[350px] lg:w-[80vh] xl:w-[90vh] aspect-square flex justify-center items-center">
-        <PostImg postImg={post.postImg} />
+        <PostImg postImg={postImg} />
       </div>
       <div className="flex flex-col items-center md:w-[calc(100%-350px)] lg:w-[calc(100%-80vh)] xl:w-[calc(100%-90vh)] md:max-h-[75vh] lg:max-h-[85vh] xl:max-h-[90vh] py-2 px-4 ">
         <div className="flex flex-col w-full h-full">

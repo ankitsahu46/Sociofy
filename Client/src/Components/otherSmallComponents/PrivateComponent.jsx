@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Outlet, Navigate } from 'react-router-dom';
-import { Header } from '../pages';
+import { Header } from '../../pages';
 
 function PrivateComponent() {
   const auth = localStorage.getItem('token');

@@ -8,6 +8,9 @@ export default {
     extend: {
       screens: {
         "xs": "460px",
+        "sm_max": {
+          "max": "640px"
+        },
         "mdl": "1160px",
         "md_x": {
           "min": "768px",

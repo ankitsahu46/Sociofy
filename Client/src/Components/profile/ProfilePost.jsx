@@ -9,7 +9,7 @@ function ProfilePost({ post }) {
 
   return (
     <>
-      <div onClick={() => setShowPostModal(true)} className="flex justify-center items-center aspect-square border border-t-0" >
+      <div onClick={() => setShowPostModal(true)} className="flex justify-center items-center aspect-square bg-white" >
         <img src={postImg} alt="profile" className="max-w-full max-h-full object-cover" />
       </div>
 

@@ -2,7 +2,7 @@ import express from 'express';
 import verifyToken from '../middleware/verifyToken.js';
 import Multer from 'multer';
 import cors from 'cors'
-import { checkIsFollowingTrue, getProfilePosts, getUserProfileData, followUnfollowUser, editProfile, getUserProfileInfoNoPost } from '../controllers/index.js';
+import { checkIsFollowingTrue, getProfilePosts, getUserProfileData, followUnfollowUser, editProfile, getUserProfileInfoNoPost, deletePost, editProfileNoImg } from '../controllers/index.js';
 
 const router = express.Router();
 router.use(cors());
@@ -16,5 +16,7 @@ router
   .post('/follow_unfollow_user', verifyToken, followUnfollowUser)
   .get('/check_is_following_true/:who_followed/:user_id', verifyToken, checkIsFollowingTrue)
   .post('/edit_profile/:user_id', upload.single('imgFile'), verifyToken, editProfile)
+  .post('/edit_profile_no_img/:user_id', editProfileNoImg)
+  .delete('/delete_post/:post_id', verifyToken, deletePost)
 
 export default router;
