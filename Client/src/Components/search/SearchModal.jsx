@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { LayoutModal, SearchedUser } from '..';
+import { LayoutModal, Loader, SearchedUser } from '..';
 import { search, crossIcon } from '../../assets';
 
 
@@ -114,7 +114,7 @@ function SearchModal({ setShowSearchModal }) {
                   :
                   <>
                     <div className='flex justify-center items-center h-80'>
-                      <p className='text-[var(--blue)] font-medium'>{searchStatus}</p>
+                      <p className='text-[var(--blue)] font-medium'>{searchStatus ==='Loading...' ? <Loader /> : searchStatus}</p>
                     </div>
                   </>
                 )

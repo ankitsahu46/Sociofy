@@ -3,7 +3,7 @@ import { Story } from ".."
 
 function StoryDiv() {
   return (
-    <div className="w-full max-w-[600px] mb-3 py-3 bg-white">
+    <div className="w-full max-w-[600px] mb-3 py-3 bg-white rounded-b-xl border border-gray-100">
           <div className="flex max-w-full overflow-x-scroll scroll-hidden">
 
           {

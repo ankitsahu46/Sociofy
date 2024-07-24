@@ -2,8 +2,8 @@
 
 function PostImg({ postImg }) {
   return (
-    <div className="w-full aspect-square flex justify-center items-center object-contain">
-      <img src={postImg} alt="" className="shadow-2xl shadow-white max-w-full max-h-full" />
+    <div className="w-full aspect-square flex justify-center items-center object-contain border-b border-b-gray-100">
+      <img src={postImg} alt="" className="shadow-2xl shadow-gray-50 max-w-full max-h-full" />
       
 
       {/* should be this */}

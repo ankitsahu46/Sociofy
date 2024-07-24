@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Home, Main, SideSection, MyProfile } from './pages';
-import { Login, Notification, NotificationPost, PrivateComponent, ShowPost, ShowProfile, SignUp } from './Components';
+import { Login, NotificationPost, PrivateComponent, ShowPost, ShowProfile, SignUp } from './Components';
 
 function App() {
 
@@ -40,7 +40,7 @@ function App() {
           </BrowserRouter>
         </div>
       </div>
-      <Notification />
+      {/* <Notification /> */}
     </>
   )
 }

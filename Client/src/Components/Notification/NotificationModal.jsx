@@ -1,7 +1,7 @@
 
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { LayoutModal, NotificationDiv } from '..';
+import { LayoutModal, Loader, NotificationDiv } from '..';
 import { getNotifications } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ function NotificationModal({ setShowNotificationModal }) {
   useEffect(() => {
     // const abortController = new AbortController();
     // const { signal } = abortController;
-    getNotifications(userId, setNotifications, setNotificationAvailability);
+    setTimeout(() => getNotifications(userId, setNotifications, setNotificationAvailability), 2000);
     // getNotifications(userId, signal, setNotifications, setNotificationAvailability);
 
     // return () => {
@@ -43,13 +43,13 @@ function NotificationModal({ setShowNotificationModal }) {
           <div className="w-full my-5">
             {
               notifications?.length === 0 ?
-                <div className="flex justify-center items-center font-medium text-xl text-[var(--blue)] min-w-full min-h-[70vh] border border-red-600">
+                <div className="flex justify-center items-center font-medium text-xl text-[var(--blue)] min-w-full min-h-[70vh]">
                   <div className='flex justify-center items-center min-w-[80vw] md:min-w-full'>
-                    {notificationAvailability}
+                    {notificationAvailability ==='Loading...' ? <Loader /> : notificationAvailability}
                   </div>
                 </div>
                 :
-                <div className="flex flex-col items-center font-medium text-md min-h-[50vh] max-h-[75vh] overflow-y-auto gap-y-3 custom-scroll-bar mr-1">
+                <div className="flex flex-col items-center font-medium text-md min-h-[70vh] max-h-[75vh] overflow-y-auto gap-y-3 custom-scroll-bar mr-1">
                   {
                     [...notifications].reverse().map((notification) => (
                       <NotificationDiv

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { SvgInfoBox, Nav, PostUploadModal, SearchModal, LogoutModal, NotificationModal } from "../Components";
+import { SvgInfoBox, Nav, PostUploadModal, SearchModal, LogoutModal, NotificationModal, Notification } from "../Components";
 import {
   home,
   homeActive,
@@ -30,7 +30,7 @@ function Header() {
 
   if (location !== nav) dispatch(setNav(location));
   const Home = nav === "home" ? homeActive : home;
-  const Notification = nav === "notification" ? notificationActive : notification;
+  const NotificationNav = nav === "notification" ? notificationActive : notification;
 
   const togglePostModal = () => setShowPostModal(!showPostModal);
   const toggleSearchModal = () => setShowSearchModal(!showSearchModal);
@@ -60,7 +60,7 @@ function Header() {
             [search, "Search", toggleSearchModal],
             [post, "Post", togglePostModal],
             [Home, "Home", "/"],
-            [Notification, "Notification", toggleNotificationModal],
+            [NotificationNav, "Notification", toggleNotificationModal],
             [img ? img : noImage, "Profile", "/profile"],
           ].map((navInfo) => (
             <Nav key={navInfo[1]} navInfo={navInfo} />
@@ -81,13 +81,16 @@ function Header() {
         </div>
 
         {/* Modal */}
-        <div className="fixed">
+        {/* <div className="fixed"> */}
           {showPostModal && <PostUploadModal setShowPostModal={setShowPostModal} />}
           {showSearchModal && <SearchModal setShowSearchModal={setShowSearchModal} />}
           {showNotificationModal && <NotificationModal setShowNotificationModal={setShowNotificationModal} />}
           {showLogoutModal && <LogoutModal setShowLogoutModal={setShowLogoutModal} />}
-        </div>
+        {/* </div> */}
       </header>
+
+      {/* To open notification modal when it is clicked */}
+      <Notification showNotificationModal={showNotificationModal} setShowNotificationModal={setShowNotificationModal} />
     </>
   );
 }

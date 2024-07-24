@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { ProfilePost } from "..";
+import { Loader, ProfilePost } from "..";
 
-function ProfilePostSection({ posts = [], postAvailability }) {
+function ProfilePostSection({ posts = [], setPosts, userData, setUserData, postAvailability, myProfile }) {
 
   return (
     <div className="mt-5">
@@ -14,14 +14,18 @@ function ProfilePostSection({ posts = [], postAvailability }) {
       >
         {posts.length === 0 ? (
           <div className="flex justify-center items-center mt-16 font-medium text-2xl text-[var(--blue)]">
-            {postAvailability}
+            {postAvailability === "Loading..." ? <Loader /> : postAvailability}
           </div>
         ) : (
-          <div className={`grid grid-cols-3 gap-1 px-[0.25rem] bg-gray-100 [&>*]:border [&>:nth-child(1)]:border-t-0 [&>:nth-child(2)]:border-t-0 [&>:nth-child(3)]:border-t-0 `}>
+          <div className={`grid grid-cols-3 gap-1 mx-[0.25rem] bg-gray-100  [&>*]:border`}>
             {[...posts].reverse().map((post) => (
               <ProfilePost
                 key={post._id}
                 post={post}
+                myProfile={myProfile}
+                setPosts={setPosts}
+                setUserData={setUserData}
+                userData={userData}
               />
             ))}
           </div>

@@ -1,4 +1,4 @@
-const sendNotification = async (title, body, userId) => {
+const sendNotification = async (title='', body, userId) => {
   const response2 = await fetch(`http://localhost:8080/send`, {
     method: "POST",
     headers: {

@@ -5,14 +5,18 @@ const getPostsForHome = async (
   setPostsData,
   setPostAvailability,
   setLoading,
-  setIsShowingRecent
+  setIsShowingRecent,
+  setProgress
 ) => {
   try {
-    if (!(following?.length > 0))
+    setProgress(20);
+    if (!(following?.length > 0)) {
       setPostAvailability(
         "No Posts Found! Follow your friends to see their posts."
       );
-    else {
+      setProgress(100);
+    } else {
+      setProgress(30);
       let response = await fetch(
         `http://localhost:8080/post/get_posts_for_home`,
         {
@@ -24,17 +28,23 @@ const getPostsForHome = async (
           body: JSON.stringify({ following, userId }),
         }
       );
-
+      setProgress(60);
       const result = await response.json();
+      setProgress(70);
       if (result.success) {
         if (!result.showRecent) setPostsData(result.postsData);
         else setPostsData(result.recent);
         setIsShowingRecent(result.showRecent);
-      } 
-      else setPostAvailability("Couldn't find Posts! Try again.");
+        setProgress(90);
+        setProgress(100);
+      } else {
+        setPostAvailability("Couldn't find Posts! Try again.");
+        setProgress(100);
+      }
     }
   } catch (err) {
     setPostAvailability("Couldn't find Posts! Try again.");
+    setProgress(100);
   }
   setLoading(false);
 };

@@ -1,20 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
 import { PostImg, PostOwnerInfo, PostReactBox, AddComment, CommentSection } from "..";
-import { getTimeForPost, getUserNameAndUserImg } from "../../utils";
+import { getTimeForPost } from "../../utils";
 import { noImage } from "../../assets";
 
-function ProfilePostAndCommentSection({ post }) {
+function ProfilePostAndCommentSection({ post, setPosts='', userData, setUserData='' }) {
   const { postImg, username, _id: postId, userId, userImg, shares, likers = [], caption, datePosted } = post;
   let { comments_all } = post;
   const commentState = ["pending", "notPending", "failed", "deleting"];
   const [pendingComment, setPendingComment] = useState(commentState[1]);
   const [allComments, setAllComments] = useState([]);
   const [showComment, setShowComment] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
   const cmt = useRef("");
 
-  const token = JSON.parse(localStorage.getItem('token'));
   const { timeForOwnerInfo, timeForReactBox } = getTimeForPost(datePosted);
   const addCommentProps = {
     cmt,
@@ -34,16 +32,18 @@ function ProfilePostAndCommentSection({ post }) {
     cmt,
     postId,
     userId,
-    userImg: userInfo?.img || userImg || noImage, 
+    userImg: userData?.img || userImg || noImage, 
     username, 
     caption,
   }
   const postOwnerInfoProps = {
     userId,
     username,
-    userImg: userInfo?.img || userImg || noImage,
+    userImg: userData?.img || userImg || noImage,
     timeForOwnerInfo,
-    postId
+    postId,
+    setPosts,
+    setUserData,
   }
   const postReactBoxProps = {
     likers,
@@ -54,16 +54,9 @@ function ProfilePostAndCommentSection({ post }) {
     timeForReactBox,
   }
 
-  
   useEffect(() => {
     setAllComments(comments_all);
   }, [comments_all]);
-
-  useEffect(() => {
-    if (userId) {
-      getUserNameAndUserImg(userId, token, setUserInfo);
-    }
-  }, [userId, token])
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -77,7 +70,7 @@ function ProfilePostAndCommentSection({ post }) {
           </div>
           <hr />
           <div className="flex flex-col-reverse md:flex-col h-[calc(100%-4rem)] mob:max-h-[350px]">
-            <div className="px-2 overflow-y-scroll custom-scroll-bar mb-3 flex-grow">
+            <div className={`px-2 mb-3 flex-grow ${allComments?.length !== 0 && 'overflow-y-scroll custom-scroll-bar'}`}>
               <CommentSection {...commentSectionProps} />
             </div>
             <div className="w-full">

@@ -2,9 +2,9 @@
 import { noImage } from "../../assets";
 import { useEffect, useState } from "react";
 import { followUnfollowUser, checkIsFollowingTrue } from "../../utils";
+import FollowersFollowingModal from "../followers-following/FollowersFollowingModal";
 
-
-function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfileModal }) {
+function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfileModal, myProfile, setUserData }) {
   const {
     userId,
     username,
@@ -14,9 +14,10 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
     followers = [],
     following = [],
     posts = [],
-    myProfile,
   } = data;
   const [isFollowing, setIsFollowing] = useState(false);
+  const [nameForModal, setNameForModal] = useState('')
+  const [showFollowersFollowingModal, setShowFollowersFollowingModal] = useState(false);
 
   const noOfPosts = posts?.length;
   const noOfFollowers = followers?.length;
@@ -30,18 +31,21 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
   };
 
 
-  const toggleEditProfileModal = () =>
-    setShowEditProfileModal(!showEditProfileModal);
-
+  const toggleEditProfileModal = () => setShowEditProfileModal(!showEditProfileModal);
+  const toggleFollowersFollowingModal = (name) => {
+    setShowFollowersFollowingModal(!showFollowersFollowingModal);
+    setNameForModal(name);
+  }
 
   useEffect(() => {
     if (!myProfile && userId)
       checkIsFollowingTrue(whoFollowed, userId, setIsFollowing, token);
   }, [myProfile, whoFollowed, userId, token]);
 
-  
+
   return (
     <div className="justify-center items-center grid grid-cols-5 mt-5 md:mt-2 lg:mt-0 sm_max:mx-4">
+      {/* Profile Image */}
       <div className="col-span-2 flex justify-center items-center aspect-square">
         <img
           src={img || (userId === whoFollowed && profileImg) || noImage}
@@ -49,6 +53,8 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
           className="rounded-full w-[70%] h-[70%] md:w-[45%] md:h-[45%] object-contain border"
         />
       </div>
+
+      {/* Username, EditProfile/Follow button */}
       <div className="col-span-3 flex flex-col justify-center items-start pl-4">
         <div className="flex gap-7">
           <span className="text-lg font-semibold text-[var(--blue)]">
@@ -70,15 +76,18 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
             </button>
           )}
         </div>
+
+        {/* showing number of posts, followers and following */}
         <div className="flex [&>*]:flex-1 mt-8 font-medium ">
           {[
-            ["Posts", noOfPosts],
-            ["Followers", noOfFollowers],
-            ["Following", noOfFollowing],
-          ].map(([name, value]) => (
+            ["Posts", noOfPosts, () => console.log("")],
+            ["Followers", noOfFollowers, () => toggleFollowersFollowingModal('followers')],
+            ["Following", noOfFollowing, () => toggleFollowersFollowingModal('following')],
+          ].map(([name, value, onClickFunc]) => (
             <div
               key={name}
-              className="flex flex-col justify-center items-center mr-7 text-sm sm:text-base"
+              onClick={onClickFunc}
+              className={`flex flex-col justify-center items-center mr-7 text-sm sm:text-base ${name !== "Posts" && "cursor-pointer"}`}
             >
               <span>{name}</span>
               <span className="font-bold text-base sm:text-lg text-blue-600">
@@ -87,6 +96,8 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
             </div>
           ))}
         </div>
+
+        {/* Name and Bio */}
         <span className="font-medium text-base md:text-lg mt-5 -mb-4">
           {name}
         </span>
@@ -96,8 +107,13 @@ function ProfileUserInfoSection({ data, showEditProfileModal, setShowEditProfile
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <div className="fixed">
+        {showFollowersFollowingModal && <FollowersFollowingModal setShowFollowersFollowingModal={setShowFollowersFollowingModal} name={nameForModal} setUserData={setUserData} />}
+      </div>
     </div>
   )
 }
 
-export default ProfileUserInfoSection
+export default ProfileUserInfoSection;

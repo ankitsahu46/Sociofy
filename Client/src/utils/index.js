@@ -14,6 +14,12 @@ import { getPostData } from "./getPostData";
 import { getUserProfileInfoNoPost } from "./getUserProfileInfoNoPost";
 import { getUserNameAndUserImg } from "./getUserNameAndUserImg";
 import { handlePostDelete } from "./handlePostDelete";
+import { fetchMorePosts } from "./fetchMorePostsForHome";
+import { postUpload } from "./postUpload";
+import { handlePostDeleteFromProfile } from "./handlePostDeleteFromProfile";
+import { getFollowersFollowingList } from "./getFollowersFollowingList";
+import { getFollowersFollowingSearchResults } from "./getFollowersFollowingSearchResults";
+import { removeUserFromFollowersFollowing } from "./removeUserFromFollowersFollowing";
 
 export { 
   followUnfollowUser,
@@ -32,5 +38,15 @@ export {
   getUserProfileInfoNoPost,
   getUserNameAndUserImg,
   handlePostDelete,
+  fetchMorePosts,
+  postUpload,
+  handlePostDeleteFromProfile,
+  getFollowersFollowingSearchResults,
+  getFollowersFollowingList,
+  removeUserFromFollowersFollowing,
+ 
+
+
+
   
 };

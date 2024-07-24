@@ -35,7 +35,7 @@ function CommentBox({ allComments, setAllComments, postId, userId, postImg, capt
   return (
     <>
       <AddComment {...addCommentProps} />
-      <div className="h-full max-h-48 px-2 overflow-y-scroll custom-scroll-bar mb-3">
+      <div className={`h-full max-h-48 px-2 mb-3 ${allComments.length !== 0 && 'overflow-y-scroll custom-scroll-bar'}`}>
         <CommentSection {...commentSectionProps} />
       </div>
     </>

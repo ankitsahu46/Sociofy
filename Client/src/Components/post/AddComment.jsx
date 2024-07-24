@@ -1,3 +1,4 @@
+
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { noImage } from "../../assets";
@@ -9,6 +10,7 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
   const [addComment, setAddComment] = useState("");
   const [sendBtn, setSendBtn] = useState(false);
   const [addCommentReaction, setAddCommentReaction] = useState(false);
+  const [commentReloadReaction, setCommentReloadReaction] = useState(false);
 
   const myUserId = JSON.parse(localStorage.getItem('user_id'));
   const username = JSON.parse(localStorage.getItem('username'));
@@ -62,23 +64,22 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
         setAllComments(result2.comments);
       }
       else {
-        console.log("Couldn't reload comments");
+        setCommentReloadReaction("Couldn't reload comments!")
       }
       setPendingComment(commentState[1]);
       setShowComment(false);
 
       //sending notification to the user and updating the user's notifications
-      if (myUserId !== userId) { 
+      if (myUserId !== userId) {
         const title = "Sociofy";
           const body = `${username} commented on your post.`;
           const body2 = `commented on your post`;
-          const otherData = { 
+          const otherData = {
             postId,
             postImg: postImg[0] || '',
             comment: addComment,
           };
           const category = "Comments on Post";
-          console.log(addComment, 'add comment from addComment.js');
 
           await sendNotification(title, body, userId);
           await sendToNotificationData(category, myUserId, username, myProfileImg, userId, body2, otherData);
@@ -104,6 +105,7 @@ function AddComment({ cmt, setShowComment, setPendingComment, setAllComments, co
       </div>
 
       <ReactionInfoBox showInfo={addCommentReaction} text="Couldn't add comment." />
+      <ReactionInfoBox showInfo={commentReloadReaction} text="Couldn't reload comments!" />
     </div>
   )
 }

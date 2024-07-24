@@ -34,8 +34,14 @@ import Nav from "./otherSmallComponents/Nav.jsx";
 import PrivateComponent from "./otherSmallComponents/PrivateComponent.jsx";
 import ProfilePostAndCommentSection from "./profile/ProfilePostAndCommentSection.jsx";
 import NotificationDiv from "./Notification/NotificationDiv.jsx";
+import Loader from "./otherSmallComponents/Loader.jsx";
 import useOutSideClick from "./customHooks/useOutsideClick.jsx";
-
+import usePostSeenByUser from "./customHooks/usePostSeenByUser.jsx";
+import GetUserNameUnderLineText from "./register/GetUserNameUnderLineText.jsx";
+import WelcomeText from "./register/WelcomeText.jsx";
+import UserListItem from "./followers-following/UserListItem.jsx";
+import SearchBox from "./otherSmallComponents/SearchBox.jsx";
+import FollowersFollowingModal from "./followers-following/FollowersFollowingModal.jsx";
 
 export {
   Nav,
@@ -74,6 +80,14 @@ export {
   NotificationPost,
   ProfilePostAndCommentSection,
   NotificationDiv,
+  Loader,
   useOutSideClick,
+  usePostSeenByUser,
+  GetUserNameUnderLineText,
+  WelcomeText,
+  UserListItem,
+  SearchBox,
+  FollowersFollowingModal
+  
   
 };

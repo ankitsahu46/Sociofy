@@ -16,12 +16,17 @@ const postSeenByUser = async (req, res) => {
       { new: true }
     );
 
-    if (result)
-      res
-        .status(200)
-        .json({ success: true, message: "seen added successfully",  result: result});
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: "seen added successfully",
+        result: result,
+      });
+    } else {
+      res.status(400).json({ success: false, message: "something went wrong" });
+    }
   } catch (err) {
-    res.status(200).json({ success: false, message: "something went wrong!" });
+    res.status(500).json({ success: false, message: "something went wrong!" });
   }
 };
 

@@ -1,40 +1,55 @@
-import { useState, useEffect } from 'react';
-import { Loading, Post } from "..";
+import { useState, useRef, useEffect } from 'react';
+import { Loader, Post } from "..";
 import { useParams } from 'react-router-dom';
+import LoadingBar from 'react-top-loading-bar';
 
 function ShowPost() {
   const [postData, setPostData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [postAvailability, setPostAvailability] = useState("Loading...");
+  const loadingBarRef = useRef(null);
   const { post_id } = useParams();
 
-  
-  useEffect(() => {
-    const getPostData = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/post/see/${post_id}`);
-        const result = await response.json();
+  const getPostData = async (post_id, setPostAvailability) => {
+    loadingBarRef.current.continuousStart();
+    try {
+      const response = await fetch(`http://localhost:8080/post/get_post_data/${post_id}`);
+      const result = await response.json();
+
+      if (result.success) {
         setPostData(result.data);
+        setPostAvailability("Available");
       }
-      catch (err) {
-        console.log("Could not find post");
+      else {
+        setPostAvailability("Post not available!")
       }
-      setLoading(false);
     }
-    getPostData();
+    catch (err) {
+      setPostAvailability("Couldn't find Post! Got Error.");
+    }
+    finally {
+      loadingBarRef.current.complete();
+    }
+  }
+
+  useEffect(() => {
+    getPostData(post_id, setPostAvailability);
   }, [post_id])
 
   return (
     <>
       <main className='order-1 md:order-2 w-full max-h-[100vh-2.5rem] md:max-h-[100vh]'>
         <div className='grid grid-cols-10'>
-          <section className='col-span-10 h-[calc(100vh-2.5rem)] md:h-[100vh] flex justify-center overflow-y-scroll scroll-hidden'>
-            <div className="w-full flex flex-col items-center">
-              <div className="w-full max-w-[500px] mt-5">
+          <section className='col-span-10 h-[calc(100vh-2.5rem)] md:h-[100vh] flex justify-center overflow-y-scroll scroll-hidden  bg-gray-50'>
+          <LoadingBar color="#29caff" ref={loadingBarRef} />
+            <div className="w-full h-full flex flex-col items-center">
+              <div className="w-full max-w-[500px] mt-5 flex justify-center items-center">
                 {
                   postData ?
-                    <Post {...postData}/>
+                    <Post post={postData} />
                     :
-                    <Loading loading={loading} classes='h-[calc(100vh-2.5rem)]' />
+                    <div className="flex justify-center items-center mt-16 font-medium text-2xl text-[var(--blue)] w-full h-[80vh]">
+                      {postAvailability === "Loading..." ? <Loader /> : postAvailability}
+                    </div>
                 }
               </div>
             </div>
@@ -45,52 +60,4 @@ function ShowPost() {
   )
 }
 
-export default ShowPost
-// import { useState, useEffect } from 'react';
-// import { Loading, Post } from "..";
-// import { useParams } from 'react-router-dom';
-
-// function ShowPost() {
-//   const [postData, setPostData] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const { id, post_id, i } = useParams();
-
-  
-//   useEffect(() => {
-//     const getPostData = async () => {
-//       try {
-//         const response = await fetch(`http://localhost:8080/post/see/${id}/${post_id}/${i}`);
-//         const result = await response.json();
-//         setPostData(result.data);
-//       }
-//       catch (err) {
-//         console.log("Could not find post");
-//       }
-//       setLoading(false);
-//     }
-//     getPostData();
-//   }, [id, post_id, i])
-
-//   return (
-//     <>
-//       <main className='order-1 md:order-2 w-full max-h-[100vh-2.5rem] md:max-h-[100vh]'>
-//         <div className='grid grid-cols-10'>
-//           <section className='col-span-10 h-[calc(100vh-2.5rem)] md:h-[100vh] flex justify-center overflow-y-scroll scroll-hidden'>
-//             <div className="w-full flex flex-col items-center">
-//               <div className="w-full max-w-[600px]">
-//                 {
-//                   postData ?
-//                     <Post {...postData} i={i} id={id}/>
-//                     :
-//                     <Loading loading={loading} classes='h-[calc(100vh-2.5rem)]' />
-//                 }
-//               </div>
-//             </div>
-//           </section>
-//         </div>
-//       </main >
-//     </>
-//   )
-// }
-
-// export default ShowPost
+export default ShowPost;

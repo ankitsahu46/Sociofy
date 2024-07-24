@@ -28,6 +28,10 @@ import { getUserProfileInfoNoPost } from "./profile/getUserProfileInfoNoPostCont
 import { getUserNameAndUserImg } from "./home/getUserNameAndUserImgController.js";
 import { deletePost } from "./profile/deletePostController.js";
 import { editProfileNoImg } from "./profile/editProfileNoImgController.js";
+import { fetchMorePostsForHome } from "./post/fetchMorePostsForHomeController.js";
+import { getFollowersFollowingList } from "./profile/getFollowersFollowingListController.js";
+import { searchFollowersFollowing } from "./profile/searchFollowersFollowing.js";
+import { removeUserFromFollowersFollowing } from "./profile/removeUserFromFollowersFollowingController.js";
 
 export {
   signup,
@@ -60,5 +64,9 @@ export {
   getUserNameAndUserImg,
   deletePost,
   editProfileNoImg,
-
+  fetchMorePostsForHome,
+  getFollowersFollowingList,
+  searchFollowersFollowing,
+  removeUserFromFollowersFollowing
+  
 };

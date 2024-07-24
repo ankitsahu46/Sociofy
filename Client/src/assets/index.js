@@ -20,5 +20,7 @@ import preview from './preview.png';
 import crossIcon from './crossIcon.svg';
 import logOutIcon from './logOutIcon.svg';
 import arrow from './arrow.svg';
+import complete from './complete.svg';
+import spinner from './spinner.gif';
 
-export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noImage, deleteIcon, wave, preview, crossIcon, logOutIcon, arrow };
+export { home, homeActive, search, searchActive, post, postActive, notification, notificationActive, profilePic, logo, more, moreActive, comment, share, options, noImage, deleteIcon, wave, preview, crossIcon, logOutIcon, arrow, complete, spinner };

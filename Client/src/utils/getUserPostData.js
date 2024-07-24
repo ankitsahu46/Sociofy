@@ -10,7 +10,7 @@ const getUserPostData = async (userId, token, setUserPostData, setPostAvailabili
     const result = await response.json();
     if (result.success) {
       setUserPostData(result.postData);
-      if (result.postData?.length === 0) setPostAvailability("No Posts Found!");
+      if (result.postData?.length === 0) setPostAvailability("You have no post available to see. Post Some photos.");
     }
     else setPostAvailability(result.message);
   }

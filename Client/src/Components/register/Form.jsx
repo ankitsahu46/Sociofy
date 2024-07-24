@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef } from "react";
 import { wave } from "../../assets";
+import { WelcomeText, GetUserNameUnderLineText } from '..'
 
 export default function Form({ name, isSignUp = false, func }) {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ export default function Form({ name, isSignUp = false, func }) {
   const placeholder = isSignUp ? "Email" : "Email or Username";
   const switchTo = isSignUp ? "Log In" : "Sign Up";
 
-  let usernameUnderlineText = getUsernameUnderlineText(isAvailable);
+  let usernameUnderlineText = GetUserNameUnderLineText(isAvailable);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -118,7 +119,7 @@ export default function Form({ name, isSignUp = false, func }) {
           </form>
 
           <div className="flex items-center mt-2">
-            <p className="text-sm mr-2">Don't have an account? </p>
+            <p className="text-sm mr-2">{isSignUp ? 'Already have an account?' : "Don't have an account?"}</p>
             <a href={isSignUp ? "/login" : "/signup"} rel="noreferrer"><span className="text-blue-700 font-medium text-md cursor-pointer">{switchTo}</span></a>
           </div>
         </div>
@@ -151,29 +152,10 @@ const Input = ({ type, name, value, handleChange, placeholder, children }) => {
   )
 }
 
-const getUsernameUnderlineText = (isAvailable) => {
-  if (isAvailable === "checking") return (<span className="text-yellow-600">checking...</span>);
-  else if (isAvailable === "error") return (<span className="text-red-600">Username can not contain spaces!</span>);
-  else if (isAvailable === true) return (<span className="text-green-500">Available.</span>);
-  else if (isAvailable === false) return (<span className="text-red-600">Not Available!</span>);
-}
-
 const Wave = () => {
   return (
     <div className="relative h-[100%] aspect-auto hidden lg:flex items-center scale-[7]">
       <img src={wave} alt="" className="-rotate-90 w-[5rem]" />
-    </div>
-  )
-}
-
-const WelcomeText = () => {
-  return (
-    <div className="w-full min-h-[85vh] lg:w-[50%] hidden lg:flex flex-col items-center justify-center  bg-gradient-to-r from-[var(--blue)] to-[var(--blue-semidark2)] mx-auto rounded-2xl lg:rounded-r-2xl lg:rounded-l-none py-5">
-      <div className="w-full h-full flex mx-auto px-16 text-white text-lg font-medium">
-        <p>
-          Welcome to <span className="font-bold">SOCIOFY</span> - A social media platform, where you can connect with the world and create your memories.
-        </p>
-      </div>
     </div>
   )
 }

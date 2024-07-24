@@ -20,7 +20,7 @@ function SvgInfoBox({ name, position, children }) {
         {children}
       </div>
       <div className="relative">
-        <div className={`bg-gray-700 text-white inline-block px-2 py-1 rounded-md border border-white ring-1 ring-black text-xs ${position} absolute  ${appear ? "visible" : "hidden"} transition-all`} >
+        <div className={`bg-gray-700 text-white inline-block px-2 py-1 rounded-md border border-white ring-1 ring-black text-xs ${position} absolute  ${appear ? "block" : "hidden"} transition-all`} >
           {name}
         </div>
       </div>
